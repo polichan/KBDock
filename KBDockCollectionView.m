@@ -8,6 +8,7 @@
 
 #import "KBDockCollectionView.h"
 #import "KBDockCollectionViewCell.h"
+#import <objc/runtime.h>
 
 
 @interface KBDockCollectionView() <UICollectionViewDataSource, UICollectionViewDelegate>
@@ -50,6 +51,11 @@
 }
 
 - (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath {
-    NSLog(@"点击");
+  Class lsawsc = objc_getClass("LSApplicationWorkspace");
+  NSObject* workspace = [lsawsc performSelector:NSSelectorFromString(@"defaultWorkspace")];
+  // iOS6 没有defaultWorkspace
+  if ([workspace respondsToSelector:NSSelectorFromString(@"openApplicationWithBundleID:")]){
+    [workspace performSelector:NSSelectorFromString(@"openApplicationWithBundleID:") withObject:@"com.apple.AppStore"];
+  }
 }
 @end

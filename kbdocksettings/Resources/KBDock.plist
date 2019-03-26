@@ -47,10 +47,8 @@
 			<string>/var/mobile/Library/Preferences/com.nactro.kbdocksettings.plist</string>
 			<key>ALSingleEnabledMode</key>
 			<false/>
-			<!-->
 			<key>ALSettingsKeyPrefix</key>
-			<string></string>
-			<-->
+			<string>KBEnabled-</string>
 			<key>ALAllowsSelection</key>
 			<false/>
 		</dict>
