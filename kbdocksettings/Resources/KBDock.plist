@@ -31,16 +31,28 @@
 			<string>个性化设置</string>
 		</dict>
 		<dict>
-		<key>cell</key>
-		<string>PSLinkCell</string>
-		<key>label</key>
-		<string>自定义添加应用到底部 Dock</string>
-		<key>detail</key>
-		<string>AppList</string>
-		<key>default</key>
-		<string>default</string>
-		<key>PostNotification</key>
-		<string>com.nactro.kbdocksettings</string>
+			<key>bundle</key>
+			<string>AppList</string>
+			<key>ALNavigationTitle</key>
+			<string>自定义底部 Dock 应用</string>
+			<key>enabled</key>
+			<true/>
+			<key>cell</key>
+			<string>PSLinkCell</string>
+			<key>isController</key>
+			<true/>
+			<key>label</key>
+			<string>自定义底部 Dock 应用</string>
+			<key>ALSettingsPath</key>
+			<string>/var/mobile/Library/Preferences/com.nactro.kbdocksettings.plist</string>
+			<key>ALSingleEnabledMode</key>
+			<false/>
+			<!-->
+			<key>ALSettingsKeyPrefix</key>
+			<string></string>
+			<-->
+			<key>ALAllowsSelection</key>
+			<false/>
 		</dict>
 
 		<dict>
