@@ -1,0 +1,9 @@
+Package: com.nactro.kbdock
+Name: KBDock
+Depends: mobilesubstrate
+Version: 0.0.1
+Architecture: iphoneos-arm
+Description: An awesome MobileSubstrate tweak!
+Maintainer: Nactro
+Author: Nactro
+Section: Tweaks
