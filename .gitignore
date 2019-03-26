@@ -6,6 +6,12 @@
 ## THEOS
 .DS_Store
 
+.theos
+theos/
+obj/
+*.deb
+_/
+
 ## Build generated
 build/
 DerivedData/

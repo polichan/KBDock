@@ -1,4 +1,7 @@
 include $(THEOS)/makefiles/common.mk
+ARCHS = arm64
+SDKVERSION = 11.2
+SYSROOT = $(THEOS)/sdks/iPhoneOS11.2.sdk
 
 BUNDLE_NAME = KBDockSettings
 KBDockSettings_FILES = KBDockRootListController.m
