@@ -20,8 +20,7 @@
 
     UICollectionViewFlowLayout *flowLayout = [[UICollectionViewFlowLayout alloc] init];
     flowLayout.scrollDirection = UICollectionViewScrollDirectionHorizontal;
-    flowLayout.minimumInteritemSpacing = 20;
-    flowLayout.minimumLineSpacing = 0;
+    flowLayout.minimumLineSpacing = 15;
 
     if(self = [super initWithFrame:CGRectZero collectionViewLayout:flowLayout]) {
         self.delegate = self;
@@ -43,7 +42,7 @@
 }
 
 - (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section {
-    return 1;
+    return 10;
 }
 
 - (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout *)collectionViewLayout sizeForItemAtIndexPath:(NSIndexPath *)indexPath {
