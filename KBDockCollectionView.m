@@ -51,8 +51,6 @@
 }
 
 - (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath {
-  NSURL *url;
-  url = [NSURL URLWithString:@"achelper://"];
-  [[UIApplication sharedApplication] openURL:url];
+    NSLog(@"点击");
 }
 @end
