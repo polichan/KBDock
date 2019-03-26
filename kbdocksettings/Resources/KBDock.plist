@@ -35,14 +35,29 @@
 		<string>PSLinkCell</string>
 		<key>label</key>
 		<string>自定义添加应用到底部 Dock</string>
-		<key>key</key>
-		<string>AppList</string>
 		<key>detail</key>
 		<string>AppList</string>
 		<key>default</key>
 		<string>default</string>
 		<key>PostNotification</key>
 		<string>com.nactro.kbdocksettings</string>
+		</dict>
+
+		<dict>
+		<key>cell</key>
+		<string>PSGroupCell</string>
+		<key>label</key>
+		<string>反馈功能区</string>
+		<key>footerText</key>
+		<string>如遇到相关问题 / Bug ，请直接点击上方反馈按钮，发送邮件联系。</string>
+		</dict>
+		<dict>
+		<key>action</key>
+		<string>goFeedback</string>
+		<key>label</key>
+		<string>反馈问题</string>
+		<key>cell</key>
+		<string>PSButtonCell</string>
 		</dict>
 
 		<dict>

@@ -1,5 +1,4 @@
 #include "KBDockRootListController.h"
-#import  <AppList/AppList.h>
 #include <spawn.h>
 #import <MessageUI/MessageUI.h>
 
@@ -9,7 +8,7 @@
 
 - (NSArray *)specifiers {
 	if (!_specifiers) {
-		_specifiers = [[self loadSpecifiersFromPlistName:@"Root" target:self] retain];
+		_specifiers = [self loadSpecifiersFromPlistName:@"KBDock" target:self];
 	}
 
 	return _specifiers;
@@ -32,7 +31,7 @@
 		[settings writeToFile:path atomically:YES];
 }
 
-#pragma mark - RetTimePlist 文件中 action 方法实现
+#pragma mark - Plist 文件中 action 方法实现
 - (void)killSpringBoard{
 	pid_t pid;
 	const char* args[] = {"killall", "backboardd", NULL};
@@ -47,6 +46,46 @@
 		url = [NSURL URLWithString:@"https://weibo.com/u/nactro"];
 	}
 	[[UIApplication sharedApplication] openURL:url];
+}
+
+- (void)goFeedback{
+    if([MFMailComposeViewController canSendMail]) {
+        MFMailComposeViewController *picker = [[MFMailComposeViewController alloc]init];
+        picker.mailComposeDelegate = self;
+        picker.navigationBar.tintColor = [UIColor blackColor];
+        [picker setSubject:@"关于「ReTime插件」我有问题需要反馈……"];
+        [picker setMessageBody:@"相关问题：\n \n \n 设备型号：\n \n \n iOS版本：\n \n \n 问题复现方式：\n \n \n 请留下您的联系方式以确保开发者能联系您解决问题。\n 相关联系方式: \n "isHTML:NO];
+        [picker setToRecipients:[NSArray arrayWithObjects:@"nactrodev@gmail.com", nil]];
+        [self presentViewController:picker animated:YES completion:nil];
+    }else{
+			UIAlertController *alertController = [UIAlertController alertControllerWithTitle:@"提示"message:@"您未设置相关邮件账号"preferredStyle:UIAlertControllerStyleAlert];
+			UIAlertAction *okAction = [UIAlertAction actionWithTitle:@"好的" style:UIAlertActionStyleDefault handler:nil];
+			[alertController addAction:okAction];
+			[self.navigationController presentViewController:alertController animated:YES completion:nil];
+    }
+}
+
+- (void)mailComposeController:(MFMailComposeViewController *)controller didFinishWithResult:(MFMailComposeResult)result error:(nullable NSError *)error{
+    switch (result) {
+        case MFMailComposeResultSent:{
+					[self dismissViewControllerAnimated:YES completion:^{
+						UIAlertController *alertController = [UIAlertController alertControllerWithTitle:@"提示"message:@"感谢您的反馈，我们会尽快解决您的问题。"preferredStyle:UIAlertControllerStyleAlert];
+						UIAlertAction *okAction = [UIAlertAction actionWithTitle:@"好的" style:UIAlertActionStyleDefault handler:nil];
+						[alertController addAction:okAction];
+						[self.navigationController presentViewController:alertController animated:YES completion:nil];
+					}];
+				}
+            break;
+        case MFMailComposeResultFailed:
+						[self.navigationController dismissViewControllerAnimated:YES completion:nil];
+            break;
+        case MFMailComposeResultCancelled:
+						[self.navigationController dismissViewControllerAnimated:YES completion:nil];
+            break;
+        case  MFMailComposeResultSaved:
+            [self.navigationController dismissViewControllerAnimated:YES completion:nil];
+            break;
+    }
 }
 
 @end

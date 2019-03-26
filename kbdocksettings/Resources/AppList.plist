@@ -1,25 +1,8 @@
 entry = {
-  bundle = AppList;
-  cell = PSLinkCell;
-  icon = "/Applications/Preferences.app/Settings.png";
-  isController = 1;
-  label = "AppList Sample";
-  ALSettingsPath = "/var/mobile/Library/Preferences/com.rpetrich.applist.sample.plist";
-  ALSettingsKeyPrefix = "Settings-";
-  ALChangeNotification = "com.rpetrich.applist.sample.notification";
-  ALAllowsSelection = 1;
-  ALSectionDescriptors = (
-  	{
-  	  items = (
-  	    {
-  	      text = "Google";
-  	      image = "/Applications/Preferences.app/Safari.png";
-  	      action = "launchURL";
-  	      url = "http://www.google.com/";
-  	    }
-  	  );
-  	  "footer-title" = "Table cell to open Safari to Google";
-  	},
+	ALSettingsPath = "/var/mobile/Library/Preferences/com.nactro.kbdocksettings.plist";
+  	cell = PSLinkCell;
+	   ALAllowsSelection = 1;
+  	ALSectionDescriptors = (
   	{
   	  title = "System Applications";
   	  predicate = "isSystemApplication = TRUE";

@@ -5,11 +5,12 @@ SDKVERSION = 11.2
 SYSROOT = $(THEOS)/sdks/iPhoneOS11.2.sdk
 
 BUNDLE_NAME = KBDockSettings
-KBDockSettings_FILES = KBDockRootListController.m NactroCreditClasses/NactroCreditOption.m  NactroCreditClasses/NactroCreditService.m  NactroCreditClasses/NactroCreditCell.m
+KBDockSettings_FILES = KBDockRootListController.m KBApplicationController.m NactroCreditClasses/NactroCreditOption.m  NactroCreditClasses/NactroCreditService.m  NactroCreditClasses/NactroCreditCell.m
 KBDockSettings_INSTALL_PATH = /Library/PreferenceBundles
-KBDockSettings_FRAMEWORKS = UIKit
+KBDockSettings_FRAMEWORKS = UIKit Foundation CoreFoundation
 KBDockSettings_LIBRARIES = applist
 KBDockSettings_PRIVATE_FRAMEWORKS = Preferences
+KBDockSettings_CFLAGS += -fobjc-arc
 
 include $(THEOS_MAKE_PATH)/bundle.mk
 
