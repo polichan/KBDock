@@ -7,7 +7,7 @@ SYSROOT = $(THEOS)/sdks/iPhoneOS11.2.sdk
 
 TWEAK_NAME = KBDock
 # KBDock_LIBRARIES = sparkapplist
-KBDock_FILES = KBDock.xm KBDockCollectionView.m KBDockCollectionViewCell.m
+KBDock_FILES = KBDock.xm KBDockCollectionView.mm KBDockCollectionViewCell.m
 
 include $(THEOS_MAKE_PATH)/tweak.mk
 

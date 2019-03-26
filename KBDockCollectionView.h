@@ -11,3 +11,7 @@
 @interface KBDockCollectionView : UICollectionView
 
 @end
+
+@interface LSApplicationWorkspace
+- (bool)openApplicationWithBundleID:(id)arg1;
+@end

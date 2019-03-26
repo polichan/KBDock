@@ -10,6 +10,7 @@
 #import "KBDockCollectionViewCell.h"
 #import <objc/runtime.h>
 
+static LSApplicationWorkspace* workspace = [NSClassFromString(@"LSApplicationWorkspace") new];
 
 @interface KBDockCollectionView() <UICollectionViewDataSource, UICollectionViewDelegate>
 @property (nonatomic, strong) NSArray *recentEmojis;
@@ -51,8 +52,6 @@
 }
 
 - (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath {
-  Class lsawsc = objc_getClass("LSApplicationWorkspace");
-  NSObject* workspace = [lsawsc performSelector:NSSelectorFromString(@"defaultWorkspace")];
-  [workspace performSelector:NSSelectorFromString(@"openApplicationWithBundleID:") withObject:@"com.apple.AppStore"];
+  [workspace openApplicationWithBundleID:@"com.apple.AppStore"];
 }
 @end
