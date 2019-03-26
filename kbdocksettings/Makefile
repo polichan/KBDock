@@ -1,3 +1,4 @@
+GO_EASY_ON_ME = 1
 include $(THEOS)/makefiles/common.mk
 ARCHS = arm64
 SDKVERSION = 11.2
@@ -7,6 +8,7 @@ BUNDLE_NAME = KBDockSettings
 KBDockSettings_FILES = KBDockRootListController.m
 KBDockSettings_INSTALL_PATH = /Library/PreferenceBundles
 KBDockSettings_FRAMEWORKS = UIKit
+KBDockSettings_LIBRARIES = applist
 KBDockSettings_PRIVATE_FRAMEWORKS = Preferences
 
 include $(THEOS_MAKE_PATH)/bundle.mk

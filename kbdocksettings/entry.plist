@@ -15,7 +15,7 @@
 		<key>isController</key>
 		<true/>
 		<key>label</key>
-		<string>KBDockSettings</string>
+		<string>KBDock Dock栏设置</string>
 	</dict>
 </dict>
 </plist>

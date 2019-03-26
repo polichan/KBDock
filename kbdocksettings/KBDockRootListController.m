@@ -1,4 +1,5 @@
 #include "KBDockRootListController.h"
+#import  <AppList/AppList.h>
 
 @implementation KBDockRootListController
 
