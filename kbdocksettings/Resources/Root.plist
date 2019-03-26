@@ -20,7 +20,7 @@
 			<key>key</key>
 			<string>globalSwitch</string>
 			<key>label</key>
-			<string>全剧开关</string>
+			<string>全局开关</string>
 		</dict>
 
 
@@ -34,7 +34,7 @@
 		<key>cell</key>
 		<string>PSLinkCell</string>
 		<key>label</key>
-		<string>选择底部 Dock 启用的应用</string>
+		<string>自定义添加应用到底部 Dock</string>
 		<key>key</key>
 		<string>AppList</string>
 		<key>detail</key>
@@ -45,8 +45,82 @@
 		<string>com.nactro.kbdocksettings</string>
 		</dict>
 
+		<dict>
+		<key>cell</key>
+		<string>PSGroupCell</string>
+		<key>label</key>
+		<string>支持</string>
+		<key>footerText</key>
+		<string>你的赞助或关注我们微博是对我们最大的支持。</string>
+		</dict>
+		<dict>
+		<key>action</key>
+		<string>openDonate</string>
+		<key>label</key>
+		<string>赞助我们团队</string>
+		<key>cell</key>
+		<string>PSButtonCell</string>
+		</dict>
+		<dict>
+		<key>action</key>
+		<string>followWeibo</string>
+		<key>label</key>
+		<string>关注我们的微博</string>
+		<key>cell</key>
+		<string>PSButtonCell</string>
+		</dict>
+
+		<dict>
+		<key>label</key>
+		<string>Credits</string>
+		<key>footerText</key>
+		<string>© Nectra Development 2019</string>
+		<key>cell</key>
+		<string>PSGroupCell</string>
+		</dict>
+
+		<dict>
+		<key>creditOptions</key>
+		<array>
+			<dict>
+				<key>service</key>
+				<string>website</string>
+				<key>username</key>
+				<string>https:/apt.nactro.com</string>
+			</dict>
+			<dict>
+				<key>service</key>
+				<string>weibo</string>
+				<key>username</key>
+				<string>5788815698</string>
+			</dict>
+			<dict>
+				<key>service</key>
+				<string>email</string>
+				<key>username</key>
+				<string>NactroDev@Gmail.com</string>
+			</dict>
+			<dict>
+				<key>service</key>
+				<string>github</string>
+				<key>username</key>
+				<string>nactro</string>
+			</dict>
+		</array>
+		<key>avatarImage</key>
+		<string>nactro</string>
+		<key>creditPosition</key>
+		<string>Development Group</string>
+		<key>creditName</key>
+		<string>Nactro.</string>
+		<key>height</key>
+		<integer>84</integer>
+		<key>cellClass</key>
+		<string>NactroCreditCell</string>
+		</dict>
+
 	</array>
 	<key>title</key>
-	<string>KBDock</string>
+	<string>快捷键盘DOCK</string>
 </dict>
 </plist>
