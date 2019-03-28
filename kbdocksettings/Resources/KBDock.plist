@@ -18,11 +18,12 @@
 			<key>defaults</key>
 			<string>com.nactro.kbdocksettings</string>
 			<key>key</key>
-			<string>globalSwitch</string>
+			<string>enabledGlobalSwitch</string>
 			<key>label</key>
 			<string>全局开关</string>
+			<key>PostNotification</key>
+			<string>com.nactro.kbdocksettings/changed</string>
 		</dict>
-
 
 		<dict>
 			<key>cell</key>
@@ -52,6 +53,24 @@
 			<key>ALAllowsSelection</key>
 			<false/>
 		</dict>
+
+		<dict>
+		<key>cell</key>
+		<string>PSGroupCell</string>
+		<key>label</key>
+		<string>功能开关</string>
+		<key>footerText</key>
+		<string>请在完成更改后，注销以生效当前更改</string>
+		</dict>
+		<dict>
+		<key>action</key>
+		<string>killSpringBoard</string>
+		<key>label</key>
+		<string>注销</string>
+		<key>cell</key>
+		<string>PSButtonCell</string>
+		</dict>
+
 
 		<dict>
 		<key>cell</key>
