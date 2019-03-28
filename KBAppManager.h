@@ -8,5 +8,6 @@
 
 #import <Foundation/Foundation.h>
 @interface KBAppManager : NSObject
-+ (NSMutableArray *)getAppListToArrayWithAppPlistPath:(NSString *)appPlistPath;
++ (instancetype)sharedManager;
+- (NSMutableArray *)getAppListToArrayWithAppPlistPath:(NSString *)appPlistPath;
 @end

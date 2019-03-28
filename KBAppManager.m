@@ -8,8 +8,41 @@
 
 #import "KBAppManager.h"
 
+static KBAppManager *_sharedManager = nil;
+
 @implementation KBAppManager
-+ (NSMutableArray *)getAppListToArrayWithAppPlistPath:(NSString *)plistPath{
+
++ (instancetype)sharedManager
+{
+    static dispatch_once_t onceToken;
+    dispatch_once(&onceToken, ^{
+        if (_sharedManager == nil) {
+            _sharedManager = [[self alloc]init];
+            //_sharedManager.name = @"哈哈";
+        }
+    });
+    return _sharedManager;
+}
+
++ (instancetype)allocWithZone:(struct _NSZone *)zone
+{
+    static dispatch_once_t onceToken;
+    dispatch_once(&onceToken, ^{
+        _sharedManager = [super allocWithZone:zone];
+    });
+    return _sharedManager;
+}
+
+- (id)copyWithZone:(NSZone *)zone
+{
+    return _sharedManager;
+}
+
+- (id)mutableCopyWithZone:(NSZone *)zone {
+    return _sharedManager;
+}
+
+- (NSMutableArray *)getAppListToArrayWithAppPlistPath:(NSString *)plistPath{
     NSDictionary *appListDict= [NSDictionary dictionaryWithContentsOfFile:plistPath];
     NSMutableArray *array = [NSMutableArray arrayWithCapacity:100];
     for (NSString *displayIdentifier in appListDict) {
@@ -20,4 +53,5 @@
     }
     return array;
 }
+
 @end

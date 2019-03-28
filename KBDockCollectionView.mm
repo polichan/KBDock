@@ -40,12 +40,12 @@ static LSApplicationWorkspace* workspace = [NSClassFromString(@"LSApplicationWor
 
 - (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath {
     KBDockCollectionViewCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"KBDock" forIndexPath:indexPath];
-    cell.appImageView.image = [[ALApplicationList sharedApplicationList] iconOfSize:ALApplicationIconSizeLarge forDisplayIdentifier:[KBAppManager getAppListToArrayWithAppPlistPath:appListPlist][indexPath.row]];
+    cell.appImageView.image = [[ALApplicationList sharedApplicationList] iconOfSize:ALApplicationIconSizeLarge forDisplayIdentifier:[[KBAppManager sharedManager]getAppListToArrayWithAppPlistPath:appListPlist][indexPath.row]];
     return cell;
 }
 
 - (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section {
-  return [[KBAppManager getAppListToArrayWithAppPlistPath:appListPlist] count];
+  return [[[KBAppManager sharedManager]getAppListToArrayWithAppPlistPath:appListPlist] count];
 }
 
 - (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout *)collectionViewLayout sizeForItemAtIndexPath:(NSIndexPath *)indexPath {
@@ -55,7 +55,7 @@ static LSApplicationWorkspace* workspace = [NSClassFromString(@"LSApplicationWor
 - (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath {
     [UIImpactFeedbackGenerator generateFeedbackWithLightStyle];
     dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^(void){
-        [workspace openApplicationWithBundleID:[KBAppManager getAppListToArrayWithAppPlistPath:appListPlist][indexPath.row]];
+        [workspace openApplicationWithBundleID:[[KBAppManager sharedManager]getAppListToArrayWithAppPlistPath:appListPlist][indexPath.row]];
     });
 }
 
