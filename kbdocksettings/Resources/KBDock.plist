@@ -44,11 +44,11 @@
 			<key>label</key>
 			<string>自定义底部 Dock 应用</string>
 			<key>ALSettingsPath</key>
-			<string>/var/mobile/Library/Preferences/com.nactro.kbdocksettings.plist</string>
+			<string>/var/mobile/Library/Preferences/com.nactro.kbdocksettings.applist.plist</string>
 			<key>ALSingleEnabledMode</key>
 			<false/>
 			<key>ALSettingsKeyPrefix</key>
-			<string>KBEnabled-</string>
+			<string></string>
 			<key>ALAllowsSelection</key>
 			<false/>
 		</dict>

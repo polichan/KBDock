@@ -2,7 +2,9 @@
 #include <spawn.h>
 #import <MessageUI/MessageUI.h>
 #import <AppList/AppList.h>
-static NSString *filePath = @"/private/var/mobile/1.png";
+
+static NSString *bundlePath = @"/Library/PreferenceBundles/KBDockSettings.bundle";
+
 @interface KBDockRootListController()<MFMailComposeViewControllerDelegate>
 @end
 @implementation KBDockRootListController
@@ -10,31 +12,10 @@ static NSString *filePath = @"/private/var/mobile/1.png";
 - (NSArray *)specifiers {
 	if (!_specifiers) {
 		_specifiers = [self loadSpecifiersFromPlistName:@"KBDock" target:self];
-		[self readIconFromAppList];
 	}
 
 	return _specifiers;
 }
-
-#pragma mark - 自定义 App Icon
-
-- (void)readIconFromAppList{
-// 字母排序
-	// ALApplicationList *apps = [ALApplicationList sharedApplicationList];
-	// [apps valueForKeyPath:@"" forDisplayIdentifier:@""];
-	// NSArray *sortedDisplayIdentifiers;
-	// NSDictionary *applications = [[ALApplicationList sharedApplicationList] applicationsFilteredUsingPredicate:[NSPredicate predicateWithFormat:@"isSystemApplication = TRUE"]
-	// onlyVisible:YES titleSortedIdentifiers:&sortedDisplayIdentifiers];
-	// NSLog(@"applications--->%@",applications);
-	// NSString *displayIdentifier = [sortedDisplayIdentifiers objectAtIndex:1];
-	// UIImage *icon = [[ALApplicationList sharedApplicationList] iconOfSize:ALApplicationIconSizeSmall forDisplayIdentifier:displayIdentifier];
-	// BOOL result = [UIImagePNGRepresentation(icon)writeToFile:filePath atomically:YES];
-	// if (result) {
-	// 	NSLog(@"displayIdentifier--->%@",displayIdentifier);
-	// }
-}
-
-
 
 #pragma mark - 保存plist
 - (id)readPreferenceValue:(PSSpecifier*)specifier {

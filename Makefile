@@ -7,6 +7,7 @@ KBDock_CFLAGS += -D SIMJECT=1
 else
 TARGET = iphone:clang:11.2:11.0
 ARCHS = arm64
+THEOS=/opt/theos
 # SDKVERSION = 11.2
 # SYSROOT = $(THEOS)/sdks/iPhoneOS11.2.sdk
 endif
@@ -15,8 +16,8 @@ include $(THEOS)/makefiles/common.mk
 
 TWEAK_NAME = KBDock
 # KBDock_LIBRARIES = sparkapplist
-KBDock_FILES = KBDock.xm Common.mm KBDockCollectionView.mm KBDockCollectionViewCell.m
-
+KBDock_FILES = KBDock.xm Common.mm KBDockCollectionView.mm KBDockCollectionViewCell.m KBApplicationModel.m
+KBDock_LIBRARIES = applist
 include $(THEOS_MAKE_PATH)/tweak.mk
 
 after-install::
