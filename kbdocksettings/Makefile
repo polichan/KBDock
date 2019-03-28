@@ -1,11 +1,20 @@
 GO_EASY_ON_ME = 1
-include $(THEOS)/makefiles/common.mk
+
+ifeq ($(SIMJECT),1)
+TARGET = simulator:clang:11.2:8.0
+ARCHS = x86_64 i386
+KBDockSettings_CFLAGS += -D SIMJECT=1
+else
+TARGET = iphone:clang:11.2:11.0
 ARCHS = arm64
-SDKVERSION = 11.2
-SYSROOT = $(THEOS)/sdks/iPhoneOS11.2.sdk
+# SDKVERSION = 11.2
+# SYSROOT = $(THEOS)/sdks/iPhoneOS11.2.sdk
+endif
+
+include $(THEOS)/makefiles/common.mk
 
 BUNDLE_NAME = KBDockSettings
-KBDockSettings_FILES = KBDockRootListController.m NactroCreditClasses/NactroCreditOption.m NactroCreditClasses/NactroCreditService.m  NactroCreditClasses/NactroCreditCell.m
+KBDockSettings_FILES = KBDockRootListController.m ../Common.mm NactroCreditClasses/NactroCreditOption.m NactroCreditClasses/NactroCreditService.m  NactroCreditClasses/NactroCreditCell.m
 KBDockSettings_INSTALL_PATH = /Library/PreferenceBundles
 KBDockSettings_FRAMEWORKS = UIKit Foundation CoreFoundation
 KBDockSettings_LIBRARIES = applist

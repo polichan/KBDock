@@ -7,8 +7,7 @@
 //
 
 #import "KBDockCollectionViewCell.h"
-
-#define PREFERENCE_BUNDLE_PATH  @"/Library/PreferenceBundles/KBDockSettings.bundle"
+#import "Common.h"
 
 @interface KBDockCollectionViewCell()
 @end

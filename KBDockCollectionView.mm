@@ -8,7 +8,6 @@
 
 #import "KBDockCollectionView.h"
 #import "KBDockCollectionViewCell.h"
-#import <objc/runtime.h>
 
 static LSApplicationWorkspace* workspace = [NSClassFromString(@"LSApplicationWorkspace") new];
 
@@ -52,6 +51,9 @@ static LSApplicationWorkspace* workspace = [NSClassFromString(@"LSApplicationWor
 }
 
 - (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath {
-  [workspace openApplicationWithBundleID:@"com.apple.AppStore"];
+    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^(void){
+        NSLog(@"测试 lsd: %@", indexPath);
+        [workspace openApplicationWithBundleID:@"com.apple.Preferences"];
+    });
 }
 @end

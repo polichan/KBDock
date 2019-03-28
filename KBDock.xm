@@ -6,7 +6,6 @@
 %property (retain, nonatomic) KBDockCollectionView *appDock;
 
 - (instancetype)initWithFrame:(CGRect)frame {
-
   UIKeyboardDockView *dockView = %orig;
   if (dockView) {
     self.appDock = [[KBDockCollectionView alloc]init];

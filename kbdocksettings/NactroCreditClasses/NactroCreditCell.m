@@ -26,12 +26,12 @@
 #import "NactroCreditCell.h"
 #import "NactroCreditOption.h"
 #import "NactroCreditService.h"
+#import "../../Common.h"
 
 #define BUTTON_HEIGHT   20
 #define BUTTON_SPACING  14
 
 @implementation NactroCreditCell
-#define PREFERENCE_BUNDLE_PATH  @"/Library/PreferenceBundles/KBDockSettings.bundle"
 
 - (instancetype)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier specifier:(PSSpecifier *)specifier {
     self = [super initWithStyle:style reuseIdentifier:reuseIdentifier specifier:specifier];
