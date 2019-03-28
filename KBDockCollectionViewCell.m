@@ -10,6 +10,7 @@
 #import "Common.h"
 
 @interface KBDockCollectionViewCell()
+@property (nonatomic, strong) UIButton *clickBtn;
 @end
 
 @implementation KBDockCollectionViewCell
@@ -24,7 +25,6 @@
 
 - (void)createUI{
   self.appImageView = [[UIImageView alloc]initWithFrame:CGRectMake(0,0,30,30)];
-  //self.appImageView.image = [UIImage imageWithContentsOfFile:[PREFERENCE_BUNDLE_PATH stringByAppendingPathComponent:@"achelper.png"]];
   self.appImageView.layer.cornerRadius = 3;
   self.appImageView.clipsToBounds = YES;
   [self.contentView addSubview:self.appImageView];

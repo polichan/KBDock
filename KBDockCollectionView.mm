@@ -17,14 +17,13 @@ static LSApplicationWorkspace* workspace = [NSClassFromString(@"LSApplicationWor
 
 @interface KBDockCollectionView() <UICollectionViewDataSource, UICollectionViewDelegate>
 @property (nonatomic, strong) KBDockCollectionViewCell *appCollectionCell;
-@property (nonatomic, strong) NSMutableArray *appListArr;
 @end
 
 @implementation KBDockCollectionView
 - (instancetype)init {
     UICollectionViewFlowLayout *flowLayout = [[UICollectionViewFlowLayout alloc] init];
     flowLayout.scrollDirection = UICollectionViewScrollDirectionHorizontal;
-    flowLayout.minimumLineSpacing = 15;
+    flowLayout.minimumLineSpacing = 20;
 
     if(self = [super initWithFrame:CGRectZero collectionViewLayout:flowLayout]) {
         self.delegate = self;
@@ -41,28 +40,12 @@ static LSApplicationWorkspace* workspace = [NSClassFromString(@"LSApplicationWor
 
 - (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath {
     KBDockCollectionViewCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"KBDock" forIndexPath:indexPath];
-    // 暂时不知道为什么不能用 self.appListArr 
-    NSMutableArray *array = [NSMutableArray array];
-    NSDictionary *appListDict= [NSDictionary dictionaryWithContentsOfFile:appListPlist];
-    for (NSString *displayIdentifier in appListDict) {
-      BOOL appOpenStatus = [[appListDict objectForKey:displayIdentifier]boolValue];
-      if (appOpenStatus) {
-        [array addObject:displayIdentifier];
-      }
-    }
-    cell.appImageView.image = [[ALApplicationList sharedApplicationList] iconOfSize:ALApplicationIconSizeLarge forDisplayIdentifier:array[indexPath.row]];
+    cell.appImageView.image = [[ALApplicationList sharedApplicationList] iconOfSize:ALApplicationIconSizeLarge forDisplayIdentifier:[KBAppManager getAppListToArrayWithAppPlistPath:appListPlist][indexPath.row]];
     return cell;
 }
 
 - (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section {
-  NSDictionary *appListDict= [NSDictionary dictionaryWithContentsOfFile:appListPlist];
-  for (NSString *displayIdentifier in appListDict) {
-    BOOL appOpenStatus = [[appListDict objectForKey:displayIdentifier]boolValue];
-    if (appOpenStatus) {
-      [self.appListArr addObject:displayIdentifier];
-    }
-  }
-  return self.appListArr.count;
+  return [[KBAppManager getAppListToArrayWithAppPlistPath:appListPlist] count];
 }
 
 - (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout *)collectionViewLayout sizeForItemAtIndexPath:(NSIndexPath *)indexPath {
@@ -72,15 +55,8 @@ static LSApplicationWorkspace* workspace = [NSClassFromString(@"LSApplicationWor
 - (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath {
     [UIImpactFeedbackGenerator generateFeedbackWithLightStyle];
     dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^(void){
-        [workspace openApplicationWithBundleID:@"com.apple.Preferences"];
+        [workspace openApplicationWithBundleID:[KBAppManager getAppListToArrayWithAppPlistPath:appListPlist][indexPath.row]];
     });
-}
-
-- (NSMutableArray *)appListArr{
-    if (!_appListArr) {
-        _appListArr = [NSMutableArray arrayWithCapacity:100];
-    }
-    return _appListArr;
 }
 
 @end
