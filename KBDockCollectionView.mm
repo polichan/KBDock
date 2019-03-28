@@ -9,10 +9,9 @@
 #import "KBDockCollectionView.h"
 #import "KBDockCollectionViewCell.h"
 #import <AppList/AppList.h>
-#import "KBApplicationModel.h"
+#import "UIImpactFeedbackGenerator+Feedback.h"
 
-static NSString *appListPlist = @"/var/mobile/Library/Preferences/com.nactro.kbdocksettings.applist.plist";
-static NSString *bundlePath = @"/var/mobile/nactro";
+static NSString *appListPlist = @"/var/mobile/Library/Preferences/com.nactro.kbdocksettings.list.plist";
 static LSApplicationWorkspace* workspace = [NSClassFromString(@"LSApplicationWorkspace") new];
 
 @interface KBDockCollectionView() <UICollectionViewDataSource, UICollectionViewDelegate>
@@ -39,27 +38,14 @@ static LSApplicationWorkspace* workspace = [NSClassFromString(@"LSApplicationWor
     }
     return self;
 }
+
 #pragma mark - 更新 App 数组
 - (void)updateAppArr{
     NSDictionary *appListDict= [NSDictionary dictionaryWithContentsOfFile:appListPlist];
     for (NSString *displayIdentifier in appListDict) {
-      NSLog(@"包名：%@ 对应的属性为%@",displayIdentifier,[appListDict objectForKey:displayIdentifier]);
       BOOL appOpenStatus = [[appListDict objectForKey:displayIdentifier]boolValue];
       if (appOpenStatus) {
-        NSLog(@"包名：%@开启",displayIdentifier);
-        // 获取图片
-        UIImage *icon = [[ALApplicationList sharedApplicationList] iconOfSize:ALApplicationIconSizeSmall forDisplayIdentifier:displayIdentifier];
-        // 拼接路径
-        NSString *iconPath = [[bundlePath stringByAppendingPathComponent:displayIdentifier] stringByAppendingString:@".png"];
-        NSLog(@"iconPath --->%@",iconPath);
-        KBApplicationModel *model = [[KBApplicationModel alloc]initWithDisplayIdentifier:displayIdentifier iconPath:iconPath];
-        // 存入图片数组
-        BOOL result = [UIImagePNGRepresentation(icon)writeToFile:iconPath atomically:YES];
-        if (result) {
-          [self.appListArr addObject:model];
-        }else{
-          NSLog(@"写入失败");
-        }
+        [self.appListArr addObject:displayIdentifier];
       }
     }
 }
@@ -68,7 +54,13 @@ static LSApplicationWorkspace* workspace = [NSClassFromString(@"LSApplicationWor
 
 - (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath {
     KBDockCollectionViewCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"KBDock" forIndexPath:indexPath];
-    cell.appImageView.image = [UIImage imageWithContentsOfFile:[self.appListArr]indexPath];
+    // 打印出来是 com.apple.mobilenotes
+    //NSLog(@"self.appListArr[indexPath.section]%@",self.appListArr[indexPath.section]);
+    //NSString *bundleIdentifier = self.appListArr[indexPath.section];
+    // 正常
+    //cell.appImageView.image = [[ALApplicationList sharedApplicationList] iconOfSize:ALApplicationIconSizeLarge forDisplayIdentifier:bundleIdentifier];
+    // crash
+    //cell.appImageView.image = [[ALApplicationList sharedApplicationList] iconOfSize:ALApplicationIconSizeLarge forDisplayIdentifier:self.appListArr[indexPath.section]];
     return cell;
 }
 
@@ -81,6 +73,7 @@ static LSApplicationWorkspace* workspace = [NSClassFromString(@"LSApplicationWor
 }
 
 - (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath {
+    [UIImpactFeedbackGenerator generateFeedbackWithLightStyle];
     dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^(void){
         [workspace openApplicationWithBundleID:@"com.apple.Preferences"];
     });

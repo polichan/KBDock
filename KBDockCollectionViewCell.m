@@ -24,10 +24,9 @@
 
 - (void)createUI{
   self.appImageView = [[UIImageView alloc]initWithFrame:CGRectMake(0,0,30,30)];
-  self.appImageView.image = [UIImage imageWithContentsOfFile:[PREFERENCE_BUNDLE_PATH stringByAppendingPathComponent:@"achelper.png"]];
+  //self.appImageView.image = [UIImage imageWithContentsOfFile:[PREFERENCE_BUNDLE_PATH stringByAppendingPathComponent:@"achelper.png"]];
   self.appImageView.layer.cornerRadius = 3;
   self.appImageView.clipsToBounds = YES;
-  NSLog(@"文件地址%@",[PREFERENCE_BUNDLE_PATH stringByAppendingPathComponent:@"achelper.png"]);
   [self.contentView addSubview:self.appImageView];
 }
 @end
