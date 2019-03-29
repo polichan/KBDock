@@ -58,6 +58,29 @@
 		<key>cell</key>
 		<string>PSGroupCell</string>
 		<key>label</key>
+		<string>激活状态</string>
+		<key>footerText</key>
+		<string>如需要激活插件，请打开「插件助手」App，进行购买激活 / 试用</string>
+		</dict>
+		<dict>
+			<key>activateStatus</key>
+			<string>已激活</string>
+			<key>cellClass</key>
+			<string>NactroActivateStatusCell</string>
+		</dict>
+		<dict>
+		<key>action</key>
+		<string>goAchelper</string>
+		<key>label</key>
+		<string>打开插件激活助手</string>
+		<key>cell</key>
+		<string>PSButtonCell</string>
+		</dict>
+		
+		<dict>
+		<key>cell</key>
+		<string>PSGroupCell</string>
+		<key>label</key>
 		<string>功能开关</string>
 		<key>footerText</key>
 		<string>请在完成更改后，注销以生效当前更改</string>

@@ -91,4 +91,10 @@ static NSString *bundlePath = @"/Library/PreferenceBundles/KBDockSettings.bundle
     }
 }
 
+- (void)goAchelper{
+	NSURL *url;
+	url = [NSURL URLWithString:@"achelper://"];
+	[[UIApplication sharedApplication] openURL:url options:@{} completionHandler:nil];
+}
+
 @end
