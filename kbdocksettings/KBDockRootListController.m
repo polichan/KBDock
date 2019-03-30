@@ -1,8 +1,18 @@
 #include "KBDockRootListController.h"
 #include <spawn.h>
+#import <Preferences/PSTableCell.h>
+#import <Preferences/PSSwitchTableCell.h>
+#import <Preferences/PSListController.h>
+#import <Preferences/PSListItemsController.h>
+#import <Preferences/PSSpecifier.h>
+#import <Preferences/PSSliderTableCell.h>
+#import <Preferences/PSSwitchTableCell.h>
 #import <MessageUI/MessageUI.h>
 #import "NactroStickyHeaderView.h"
+#import "UIFont+Extension.h"
 
+#define mainColor [UIColor colorWithRed:0.36 green:0.38 blue:0.60 alpha:1.0f]
+#define HEADER_HEIGHT 180
 #define kWidth [[UIScreen mainScreen] bounds].size.width
 #define kHeight [[UIScreen mainScreen] bounds].size.height
 
@@ -16,21 +26,44 @@ static NSString *bundlePath = @"/Library/PreferenceBundles/KBDockSettings.bundle
 - (NSArray *)specifiers {
 	if (!_specifiers) {
 		_specifiers = [self loadSpecifiersFromPlistName:@"KBDock" target:self];
-		[self loadHeaderView];
 	}
-
 	return _specifiers;
 }
 
-- (void)loadHeaderView{
+- (void)viewDidLoad{
+	[super viewDidLoad];
 	[self.view addSubview:self.headerView];
+
+	UIImage *icon = [UIImage imageWithContentsOfFile:[bundlePath stringByAppendingPathComponent:@"KBDock.png"]];
+	self.navigationItem.titleView = [[UIImageView alloc] initWithImage:icon];
+}
+
+- (void)layoutSubviews{
+	self.table.frame = CGRectMake(0,HEADER_HEIGHT,kWidth,kHeight - HEADER_HEIGHT);
 }
 
 - (void)scrollViewDidScroll:(UIScrollView *)scrollView {
     CGFloat y = scrollView.contentOffset.y;
     if (y < 0) {
-        self.headerView.frame = CGRectMake(0, y, kWidth, 180 + 2 * fabs(y));
+        self.headerView.frame = CGRectMake(0, y, kWidth, HEADER_HEIGHT + 2 * fabs(y));
     }
+}
+
+/* TableView stuff. */
+- (id)tableView:(id)tableView viewForHeaderInSection:(NSInteger)section {
+	if (section == 0) {
+		return self.headerView;
+	}else{
+		return nil;
+	}
+}
+
+- (CGFloat)tableView:(id)tableView heightForHeaderInSection:(NSInteger)section {
+	if (section == 0) {
+		return HEADER_HEIGHT;
+	} else {
+		return [super tableView:tableView heightForHeaderInSection:section];
+	}
 }
 
 #pragma mark - 保存plist
@@ -63,7 +96,7 @@ static NSString *bundlePath = @"/Library/PreferenceBundles/KBDockSettings.bundle
 	}else{
 		url = [NSURL URLWithString:@"https://weibo.com/u/nactro"];
 	}
-	[[UIApplication sharedApplication] openURL:url];
+	[[UIApplication sharedApplication] openURL:url options:@{} completionHandler:nil];
 }
 
 - (void)goFeedback{
@@ -112,12 +145,61 @@ static NSString *bundlePath = @"/Library/PreferenceBundles/KBDockSettings.bundle
 	[[UIApplication sharedApplication] openURL:url options:@{} completionHandler:nil];
 }
 
+
+-(void)viewWillAppear:(BOOL)animated {
+		[super viewWillAppear:animated];
+		[UIApplication sharedApplication].statusBarStyle = UIStatusBarStyleLightContent;
+		[self.navigationController.navigationController.navigationBar setBackgroundImage:[UIImage imageWithContentsOfFile:[bundlePath stringByAppendingPathComponent:@"NavBarBG.png"]] forBarMetrics:UIBarMetricsDefault];
+		self.navigationController.navigationController.navigationBar.tintColor = [UIColor whiteColor];
+		[self.navigationController.navigationController.navigationBar setShadowImage:[UIImage new]];
+}
+
+-(void)viewWillDisappear:(BOOL)animated {
+		[super viewWillDisappear:animated];
+		[UIApplication sharedApplication].statusBarStyle = UIStatusBarStyleDefault;
+		[self.navigationController.navigationController.navigationBar setBackgroundImage:nil forBarMetrics:UIBarMetricsDefault];
+		self.navigationController.navigationController.navigationBar.tintColor = nil;
+}
+
+
 #pragma mark - 懒加载
 - (NactroStickyHeaderView *)headerView{
     if (!_headerView) {
-        _headerView = [[NactroStickyHeaderView alloc]initWithDevName:@"Nactro Dev." tweakName:@"快捷键盘" tweakVersion:@"v1.0.0" backgroundColor:[UIColor colorWithRed:0.36 green:0.38 blue:0.60 alpha:1.0f]];
-        _headerView.frame = CGRectMake(0, 0, kWidth, 180);
+        _headerView = [[NactroStickyHeaderView alloc]initWithDevName:@"Nactro Dev." tweakName:@"快捷键盘" tweakVersion:@"v1.0.0" backgroundColor:mainColor];
+        //_headerView.frame = CGRectMake(0, 0, kWidth, HEADER_HEIGHT);
     }
     return _headerView;
+}
+
+@end
+
+// Custom Button Cell ----------------------------------------------------------
+
+@interface KBButtonCell : PSTableCell
+@end
+
+@implementation KBButtonCell
+
+- (void)layoutSubviews {
+		//Sets UIButton Color
+		[super layoutSubviews];
+		[self.textLabel setTextColor:mainColor];
+	}
+@end
+
+// Custom Switch Cell ----------------------------------------------------------
+
+@interface KBSwitchCell : PSSwitchTableCell
+@end
+
+@implementation KBSwitchCell
+- (id)initWithStyle:(int)arg1 reuseIdentifier:(id)arg2 specifier:(id)arg3 {
+	self = [super initWithStyle:arg1 reuseIdentifier:arg2 specifier:arg3];
+	if (self) {
+		[((UISwitch *)[self control]) setOnTintColor:mainColor];
+		//[self.textLabel setTextColor:mainColor];
+		self.separatorInset = UIEdgeInsetsZero;
+	}
+	return self;
 }
 @end

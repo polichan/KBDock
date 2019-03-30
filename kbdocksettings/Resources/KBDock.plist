@@ -4,6 +4,12 @@
 <dict>
 	<key>items</key>
 	<array>
+
+		<dict>
+			<key>cell</key>
+			<string>PSGroupCell</string>
+		</dict>
+
 		<dict>
 			<key>cell</key>
 			<string>PSGroupCell</string>
@@ -13,6 +19,8 @@
 		<dict>
 			<key>cell</key>
 			<string>PSSwitchCell</string>
+			<key>cellClass</key>
+			<string>KBSwitchCell</string>
 			<key>default</key>
 			<true/>
 			<key>defaults</key>
@@ -75,8 +83,10 @@
 		<string>打开插件激活助手</string>
 		<key>cell</key>
 		<string>PSButtonCell</string>
+		<key>cellClass</key>
+		<string>KBButtonCell</string>
 		</dict>
-		
+
 		<dict>
 		<key>cell</key>
 		<string>PSGroupCell</string>
@@ -92,6 +102,8 @@
 		<string>注销</string>
 		<key>cell</key>
 		<string>PSButtonCell</string>
+		<key>cellClass</key>
+		<string>KBButtonCell</string>
 		</dict>
 
 
@@ -110,6 +122,8 @@
 		<string>反馈问题</string>
 		<key>cell</key>
 		<string>PSButtonCell</string>
+		<key>cellClass</key>
+		<string>KBButtonCell</string>
 		</dict>
 
 		<dict>
@@ -127,6 +141,8 @@
 		<string>赞助我们团队</string>
 		<key>cell</key>
 		<string>PSButtonCell</string>
+		<key>cellClass</key>
+		<string>KBButtonCell</string>
 		</dict>
 		<dict>
 		<key>action</key>
@@ -135,6 +151,8 @@
 		<string>关注我们的微博</string>
 		<key>cell</key>
 		<string>PSButtonCell</string>
+		<key>cellClass</key>
+		<string>KBButtonCell</string>
 		</dict>
 
 		<dict>

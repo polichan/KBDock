@@ -26,21 +26,16 @@
 
 - (void)createUIWithDevName:(NSString *)devName tweakName:(NSString *)tweakName tweakVersion:(NSString *)tweakVersion backgroundColor:(UIColor *)backgroundColor{
     self.backgroundColor = backgroundColor;
-    // 因为是自动布局，所以要关闭这个属性
-    
     // 添加到视图上
     [self addSubview:self.tweakNameLabel];
     [self addSubview:self.devNameLabel];
-    
-    self.devNameLabel.text = devName;
-    
+
     NSMutableAttributedString *attributedStr = [[NSMutableAttributedString alloc]initWithString:[NSString stringWithFormat:@"%@ %@",tweakName,tweakVersion]];
-    [attributedStr addAttribute:NSFontAttributeName value:[UIFont PingFangMediumForSize:27] range:NSMakeRange(0, 4)];
-    [attributedStr addAttribute:NSFontAttributeName value:[UIFont PingFangMediumForSize:18] range:NSMakeRange(4, 7)];
-    // autoLayout
-    
+    [attributedStr addAttribute:NSFontAttributeName value:[UIFont PingFangMediumForSize:31] range:NSMakeRange(0, 4)];
+    [attributedStr addAttribute:NSFontAttributeName value:[UIFont PingFangMediumForSize:22] range:NSMakeRange(4, 7)];
+
+    self.devNameLabel.text = devName;
     self.tweakNameLabel.attributedText = attributedStr;
-    
 
     //Stack View
     UIStackView *stackView = [[UIStackView alloc] init];
@@ -48,16 +43,15 @@
     stackView.distribution = UIStackViewDistributionEqualSpacing;
     stackView.alignment = UIStackViewAlignmentLeading;
     stackView.spacing = 5;
-    
+
     [stackView addArrangedSubview:self.devNameLabel];
     [stackView addArrangedSubview:self.tweakNameLabel];
-    
+
     stackView.translatesAutoresizingMaskIntoConstraints = NO;
     [self addSubview:stackView];
 
     //Layout for Stack View
-
-    [[stackView.leftAnchor constraintEqualToAnchor:self.leftAnchor constant:30]setActive:YES];
+    [[stackView.leftAnchor constraintEqualToAnchor:self.leftAnchor constant:15]setActive:YES];
     [[stackView.bottomAnchor constraintEqualToAnchor:self.bottomAnchor constant:-30]setActive:YES];
 }
 
@@ -66,7 +60,7 @@
     if (!_devNameLabel) {
         _devNameLabel = [[UILabel alloc]init];
         _devNameLabel.textColor = [UIColor whiteColor];
-        _devNameLabel.font = [UIFont PingFangSemiboldForSize:18];
+        _devNameLabel.font = [UIFont PingFangSemiboldForSize:22];
     }
     return _devNameLabel;
 }
