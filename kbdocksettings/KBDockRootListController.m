@@ -32,22 +32,17 @@ static NSString *bundlePath = @"/Library/PreferenceBundles/KBDockSettings.bundle
 
 - (void)viewDidLoad{
 	[super viewDidLoad];
-	[self.view addSubview:self.headerView];
-
 	UIImage *icon = [UIImage imageWithContentsOfFile:[bundlePath stringByAppendingPathComponent:@"KBDock.png"]];
 	self.navigationItem.titleView = [[UIImageView alloc] initWithImage:icon];
+	//[self.table setTableHeaderView:self.headerView];
 }
 
-- (void)layoutSubviews{
-	self.table.frame = CGRectMake(0,HEADER_HEIGHT,kWidth,kHeight - HEADER_HEIGHT);
-}
-
-- (void)scrollViewDidScroll:(UIScrollView *)scrollView {
-    CGFloat y = scrollView.contentOffset.y;
-    if (y < 0) {
-        self.headerView.frame = CGRectMake(0, y, kWidth, HEADER_HEIGHT + 2 * fabs(y));
-    }
-}
+// - (void)scrollViewDidScroll:(UIScrollView *)scrollView {
+//     CGFloat y = scrollView.contentOffset.y;
+//     if (y < 0) {
+//         self.headerView.frame = CGRectMake(0, y, kWidth, HEADER_HEIGHT + 2 * fabs(y));
+//     }
+// }
 
 /* TableView stuff. */
 - (id)tableView:(id)tableView viewForHeaderInSection:(NSInteger)section {

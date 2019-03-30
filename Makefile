@@ -1,5 +1,5 @@
 GO_EASY_ON_ME = 1
-
+DEBUG = 0
 ifeq ($(SIMJECT),1)
 TARGET = simulator:clang:11.2:8.0
 ARCHS = x86_64 i386
