@@ -34,15 +34,7 @@ static NSString *bundlePath = @"/Library/PreferenceBundles/KBDockSettings.bundle
 	[super viewDidLoad];
 	UIImage *icon = [UIImage imageWithContentsOfFile:[bundlePath stringByAppendingPathComponent:@"KBDock.png"]];
 	self.navigationItem.titleView = [[UIImageView alloc] initWithImage:icon];
-	//[self.table setTableHeaderView:self.headerView];
 }
-
-// - (void)scrollViewDidScroll:(UIScrollView *)scrollView {
-//     CGFloat y = scrollView.contentOffset.y;
-//     if (y < 0) {
-//         self.headerView.frame = CGRectMake(0, y, kWidth, HEADER_HEIGHT + 2 * fabs(y));
-//     }
-// }
 
 /* TableView stuff. */
 - (id)tableView:(id)tableView viewForHeaderInSection:(NSInteger)section {
@@ -142,23 +134,6 @@ static NSString *bundlePath = @"/Library/PreferenceBundles/KBDockSettings.bundle
 	NSURL *url;
 	url = [NSURL URLWithString:@"achelper://"];
 	[[UIApplication sharedApplication] openURL:url options:@{} completionHandler:nil];
-}
-
-- (void)fixSignature{
-	NSFileManager *manager = [NSFileManager defaultManager];
-
-	BOOL trialResult = [manager copyItemAtPath:@"/private/var/mobile/nactro/trial/com.nactro.kbdock.dat" toPath:@"/var/mobile/Library/nactro/trial/com.nactro.kbdock.dat" error:nil];
-	BOOL officialResult = [manager copyItemAtPath:@"/private/var/mobile/nactro/com.nactro.kbdock.dat" toPath:@"/var/mobile/Library/nactro/com.nactro.kbdock.dat" error:nil];
-
-	if (trialResult || officialResult) {
-		UIAlertView *alert = [[UIAlertView alloc]initWithTitle:@"提示" message:@"修复成功"
-     delegate:nil cancelButtonTitle:@"好的" otherButtonTitles: nil];
- 	 	[alert show];
-	}else{
-		UIAlertView *alert = [[UIAlertView alloc]initWithTitle:@"提示" message:@"修复失败，请联系开发者! QQ群：516127028"
-		 delegate:nil cancelButtonTitle:@"好的" otherButtonTitles: nil];
-		[alert show];
-	}
 }
 
 -(void)viewWillAppear:(BOOL)animated {

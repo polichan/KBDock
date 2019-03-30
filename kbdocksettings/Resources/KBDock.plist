@@ -106,17 +106,6 @@
 		<key>cellClass</key>
 		<string>KBButtonCell</string>
 		</dict>
-		<!-- <dict>
-		<key>action</key>
-		<string>fixSignature</string>
-		<key>label</key>
-		<string>修复底部应用显示</string>
-		<key>cell</key>
-		<string>PSButtonCell</string>
-		<key>cellClass</key>
-		<string>KBButtonCell</string>
-		</dict> -->
-
 
 		<dict>
 		<key>cell</key>
