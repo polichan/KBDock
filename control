@@ -1,9 +1,9 @@
 Package: com.nactro.kbdock
-Name: KBDock
-Depends: mobilesubstrate
-Version: 0.0.1
+Name: 快捷键盘
+Depends: mobilesubstrate, devs.nactro.achelper
+Version: 1.0.0
 Architecture: iphoneos-arm
-Description: An awesome MobileSubstrate tweak!
+Description: 在 iPhone X 键盘底部 Dock 栏实现高效应用切换功能。
 Maintainer: Nactro
 Author: Nactro
-Section: Tweaks
+Section: 原创插件

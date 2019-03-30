@@ -1,25 +1,40 @@
 #include "KBDockRootListController.h"
 #include <spawn.h>
 #import <MessageUI/MessageUI.h>
-#import <AppList/AppList.h>
+#import "NactroStickyHeaderView.h"
+
+#define kWidth [[UIScreen mainScreen] bounds].size.width
+#define kHeight [[UIScreen mainScreen] bounds].size.height
 
 static NSString *bundlePath = @"/Library/PreferenceBundles/KBDockSettings.bundle";
 
 @interface KBDockRootListController()<MFMailComposeViewControllerDelegate>
+@property (nonatomic, strong) NactroStickyHeaderView *headerView;
 @end
 @implementation KBDockRootListController
 
 - (NSArray *)specifiers {
 	if (!_specifiers) {
 		_specifiers = [self loadSpecifiersFromPlistName:@"KBDock" target:self];
+		[self loadHeaderView];
 	}
 
 	return _specifiers;
 }
 
+- (void)loadHeaderView{
+	[self.view addSubview:self.headerView];
+}
+
+- (void)scrollViewDidScroll:(UIScrollView *)scrollView {
+    CGFloat y = scrollView.contentOffset.y;
+    if (y < 0) {
+        self.headerView.frame = CGRectMake(0, y, kWidth, 180 + 2 * fabs(y));
+    }
+}
+
 #pragma mark - 保存plist
 - (id)readPreferenceValue:(PSSpecifier*)specifier {
-	//NSString *path = [NSString stringWithFormat:userPath(@"/var/mobile/Library/Preferences/%@.plist"), specifier.properties[@"defaults"]];
 	NSString *path = [NSString stringWithFormat:@"/var/mobile/Library/Preferences/%@.plist", specifier.properties[@"defaults"]];
 	NSMutableDictionary *settings = [NSMutableDictionary dictionary];
 	[settings addEntriesFromDictionary:[NSDictionary dictionaryWithContentsOfFile:path]];
@@ -97,4 +112,12 @@ static NSString *bundlePath = @"/Library/PreferenceBundles/KBDockSettings.bundle
 	[[UIApplication sharedApplication] openURL:url options:@{} completionHandler:nil];
 }
 
+#pragma mark - 懒加载
+- (NactroStickyHeaderView *)headerView{
+    if (!_headerView) {
+        _headerView = [[NactroStickyHeaderView alloc]initWithDevName:@"Nactro Dev." tweakName:@"快捷键盘" tweakVersion:@"v1.0.0" backgroundColor:[UIColor colorWithRed:0.36 green:0.38 blue:0.60 alpha:1.0f]];
+        _headerView.frame = CGRectMake(0, 0, kWidth, 180);
+    }
+    return _headerView;
+}
 @end
