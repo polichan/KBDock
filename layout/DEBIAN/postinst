@@ -3,7 +3,7 @@
 rm -rf /var/mobile/nactro/trial/com.nactro.kbdock.dat
 rm -rf /var/mobile/nactro/com.nactro.kbdock.dat
 
-echo 0x01 完成
+echo 完成
 
 if [ ! -d /var/mobile/Library/nactro/  ];then
   mkdir /var/mobile/Library/nactro
@@ -18,7 +18,5 @@ if [ ! -d /var/mobile/Library/nactro/trial  ];then
 else
   echo trial 文件夹已存在
 fi
-
-
 
 echo 已经完成相关设置

@@ -2,7 +2,7 @@
 #import <Preferences/PSSpecifier.h>
 #import <Preferences/PSTableCell.h>
 
-@interface NactroActivateStatusCell : PSTableCell
+@interface KBActivateStatusCell : PSTableCell
 @property (nonatomic, strong)UILabel *activateStatusLabel;
 - (void)setActivateStatus:(NSString *)activateStatus;
 @end

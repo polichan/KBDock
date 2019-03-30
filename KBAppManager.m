@@ -18,7 +18,6 @@ static KBAppManager *_sharedManager = nil;
     dispatch_once(&onceToken, ^{
         if (_sharedManager == nil) {
             _sharedManager = [[self alloc]init];
-            //_sharedManager.name = @"哈哈";
         }
     });
     return _sharedManager;

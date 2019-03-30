@@ -75,7 +75,7 @@
 			<key>activateStatus</key>
 			<string>已激活</string>
 			<key>cellClass</key>
-			<string>NactroActivateStatusCell</string>
+			<string>KBActivateStatusCell</string>
 		</dict>
 		<dict>
 		<key>action</key>

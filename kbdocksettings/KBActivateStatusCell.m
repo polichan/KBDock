@@ -1,18 +1,17 @@
-#import "NactroActivateStatusCell.h"
+#import "KBActivateStatusCell.h"
 #import "../Manager/DLicenseManager.h"
 
 #define PREFERENCE_BUNDLE_PATH  @"/Library/PreferenceBundles/retimesettings.bundle"
-
 static NSString *trialerLicensePath = @"/var/mobile/Library/nactro/trial/com.nactro.kbdock.dat";
 static NSString *licensePath = @"/var/mobile/Library/nactro/com.nactro.kbdock.dat";
 
 static NSString *publicKey = @"MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAptsM8G+m3huFQMYqFkV6Ky5TiGqCjE6G3oL9/XSTAkCyQcVQFry17sN5u2s/7YZq0hZZmDpwXE16y2+feUMz4UI9BuS1zr9IiSqoDRKln3amekA7VLfuwuY6ptEJDqRfl114iLvkfXmArThPS7L1G43fFX5HhsblXF6SrQNHr4HHUMlSaGFBW0s5MYK1hLynV/lkn7heE87BEW13D3XwhVhHTNboZ9tABpStMbTHRUxB1Mjb79TjB0qFUvC7VP57Rd5DzO++GQwdAniKYTisJ5ZPoN9yY7dGoSWhYBz3Te7dlcCNzzSVXDrAvjvXNdkuZvf2iA8FS85QTl3IKIoHLQIDAQAB";
 
-@interface NactroActivateStatusCell  ()
+@interface KBActivateStatusCell  ()
 
 @end
 
-@implementation NactroActivateStatusCell
+@implementation KBActivateStatusCell
 
 - (instancetype)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier specifier:(PSSpecifier *)specifier {
   self = [super initWithStyle:style reuseIdentifier:reuseIdentifier specifier:specifier];
@@ -28,10 +27,10 @@ static NSString *publicKey = @"MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAptsM8
   [super layoutSubviews];
   self.accessoryView = self.activateStatusLabel;
   [self.contentView addSubview:self.activateStatusLabel];
-  //self.selectionStyle = UITableViewCellSelectionStyleNone;
 }
 
 - (void)verifyLicense{
+
   NSFileManager *fileManager = [NSFileManager defaultManager];
   if([fileManager fileExistsAtPath:trialerLicensePath]){  // 首先判断有没有试用文件
     // 如果存在，就验证文件
@@ -60,7 +59,7 @@ static NSString *publicKey = @"MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAptsM8
 }
 
 - (instancetype)initWithSpecifier:(PSSpecifier *)specifier {
-    self = [self initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"NactroActivateCell" specifier:specifier];
+    self = [self initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"KBActivateCell" specifier:specifier];
     return self;
 }
 
