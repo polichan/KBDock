@@ -1,0 +1,24 @@
+#!/bin/bash
+
+rm -rf /var/mobile/nactro/trial/com.nactro.kbdock.dat
+rm -rf /var/mobile/nactro/com.nactro.kbdock.dat
+
+echo 0x01 完成
+
+if [ ! -d /var/mobile/Library/nactro/  ];then
+  mkdir /var/mobile/Library/nactro
+  chown -R mobile /var/mobile/Library/nactro
+else
+  echo nactro 文件夹已存在
+fi
+
+if [ ! -d /var/mobile/Library/nactro/trial  ];then
+  mkdir /var/mobile/Library/nactro/trial
+  chown -R mobile /var/mobile/Library/nactro/trial
+else
+  echo trial 文件夹已存在
+fi
+
+
+
+echo 已经完成相关设置

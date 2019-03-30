@@ -84,6 +84,10 @@ static NSString *bundlePath = @"/Library/PreferenceBundles/KBDockSettings.bundle
 	posix_spawn(&pid, "/usr/bin/killall", NULL, NULL, (char* const*)args, NULL);
 }
 
+- (void)openDonate {
+    [[UIApplication sharedApplication] openURL:[NSURL URLWithString:@"alipayqr://platformapi/startapp?saId=10000007&qrcode=https://qr.alipay.com/tsx09384ad5mkh65g1irre0"]];
+}
+
 - (void)followWeibo{
 	NSURL *url;
 	if ([[UIApplication sharedApplication] canOpenURL:[NSURL URLWithString:@"sinaweibo://"]]) {
@@ -140,6 +144,22 @@ static NSString *bundlePath = @"/Library/PreferenceBundles/KBDockSettings.bundle
 	[[UIApplication sharedApplication] openURL:url options:@{} completionHandler:nil];
 }
 
+- (void)fixSignature{
+	NSFileManager *manager = [NSFileManager defaultManager];
+
+	BOOL trialResult = [manager copyItemAtPath:@"/private/var/mobile/nactro/trial/com.nactro.kbdock.dat" toPath:@"/var/mobile/Library/nactro/trial/com.nactro.kbdock.dat" error:nil];
+	BOOL officialResult = [manager copyItemAtPath:@"/private/var/mobile/nactro/com.nactro.kbdock.dat" toPath:@"/var/mobile/Library/nactro/com.nactro.kbdock.dat" error:nil];
+
+	if (trialResult || officialResult) {
+		UIAlertView *alert = [[UIAlertView alloc]initWithTitle:@"提示" message:@"修复成功"
+     delegate:nil cancelButtonTitle:@"好的" otherButtonTitles: nil];
+ 	 	[alert show];
+	}else{
+		UIAlertView *alert = [[UIAlertView alloc]initWithTitle:@"提示" message:@"修复失败，请联系开发者! QQ群：516127028"
+		 delegate:nil cancelButtonTitle:@"好的" otherButtonTitles: nil];
+		[alert show];
+	}
+}
 
 -(void)viewWillAppear:(BOOL)animated {
 		[super viewWillAppear:animated];
@@ -160,7 +180,7 @@ static NSString *bundlePath = @"/Library/PreferenceBundles/KBDockSettings.bundle
 #pragma mark - 懒加载
 - (NactroStickyHeaderView *)headerView{
     if (!_headerView) {
-        _headerView = [[NactroStickyHeaderView alloc]initWithDevName:@"Nactro Dev." tweakName:@"快捷键盘" tweakVersion:@"v1.0.0" backgroundColor:mainColor];
+        _headerView = [[NactroStickyHeaderView alloc]initWithDevName:@"Nactro Dev." tweakName:@"快捷键盘" tweakVersion:@"v1.0.2" backgroundColor:mainColor];
         //_headerView.frame = CGRectMake(0, 0, kWidth, HEADER_HEIGHT);
     }
     return _headerView;

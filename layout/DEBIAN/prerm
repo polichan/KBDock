@@ -3,4 +3,6 @@
     rm /private/var/mobile/com.nactro.kbdock.dat
     rm -rf /private/var/mobile/nactro/com.nactro.kbdock.dat
     rm -rf /private/var/mobile/nactro/trial/com.nactro.kbdock.dat
+    rm -rf /var/mobile/Library/nactro/com.nactro.kbdock.dat
+    rm -rf /var/mobile/Library/nactro/trial/com.nactro.kbdock.dat
 } &> /dev/null

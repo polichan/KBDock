@@ -3,8 +3,12 @@
 #import "Manager/DLicenseManager.h"
 
 static NSString *KBDockSettingsPlist = @"/var/mobile/Library/Preferences/com.nactro.kbdocksettings.plist";
-static NSString *trialerLicensePath = @"/private/var/mobile/nactro/trial/com.nactro.kbdock.dat";
-static NSString *licensePath = @"/private/var/mobile/nactro/com.nactro.kbdock.dat";
+// static NSString *trialerLicensePath = @"/var/mobile/nactro/trial/com.nactro.kbdock.dat";
+// static NSString *licensePath = @"/var/mobile/nactro/com.nactro.kbdock.dat";
+
+static NSString *trialerLicensePath = @"/var/mobile/Library/nactro/trial/com.nactro.kbdock.dat";
+static NSString *licensePath = @"/var/mobile/Library/nactro/com.nactro.kbdock.dat";
+
 static NSString *publicKey = @"MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAptsM8G+m3huFQMYqFkV6Ky5TiGqCjE6G3oL9/XSTAkCyQcVQFry17sN5u2s/7YZq0hZZmDpwXE16y2+feUMz4UI9BuS1zr9IiSqoDRKln3amekA7VLfuwuY6ptEJDqRfl114iLvkfXmArThPS7L1G43fFX5HhsblXF6SrQNHr4HHUMlSaGFBW0s5MYK1hLynV/lkn7heE87BEW13D3XwhVhHTNboZ9tABpStMbTHRUxB1Mjb79TjB0qFUvC7VP57Rd5DzO++GQwdAniKYTisJ5ZPoN9yY7dGoSWhYBz3Te7dlcCNzzSVXDrAvjvXNdkuZvf2iA8FS85QTl3IKIoHLQIDAQAB";
 
 
@@ -55,9 +59,8 @@ static void verifySignature(){
 %property (retain, nonatomic) KBDockCollectionView *appDock;
 
 - (instancetype)initWithFrame:(CGRect)frame {
-  if (licenseStatus) {
-    if (enabledGlobalSwitch) {
     UIKeyboardDockView *dockView = %orig;
+    if (licenseStatus && enabledGlobalSwitch) {
       if (dockView) {
         self.appDock = [[KBDockCollectionView alloc]init];
         self.appDock.translatesAutoresizingMaskIntoConstraints = NO;
@@ -67,14 +70,13 @@ static void verifySignature(){
         [dockView addConstraint:[NSLayoutConstraint constraintWithItem:self.appDock attribute:NSLayoutAttributeRight relatedBy:NSLayoutRelationEqual toItem:dockView attribute:NSLayoutAttributeRight multiplier:1.0 constant:-50]];
         [dockView addConstraint:[NSLayoutConstraint constraintWithItem:self.appDock attribute:NSLayoutAttributeHeight relatedBy:NSLayoutRelationEqual toItem:nil attribute:NSLayoutAttributeNotAnAttribute multiplier:1.0 constant:40]];
         [dockView addConstraint:[NSLayoutConstraint constraintWithItem:self.appDock attribute:NSLayoutAttributeBottom relatedBy:NSLayoutRelationEqual toItem:dockView attribute:NSLayoutAttributeBottom multiplier:1.0 constant:-22]];
+        return dockView;
+      }else{
+        return %orig;
       }
-      return dockView;
     }else{
       return %orig;
-  }
-}else{
-  return %orig;
-}
+    }
 }
 %end
 

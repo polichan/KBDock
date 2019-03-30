@@ -19,10 +19,11 @@
 		<dict>
 			<key>cell</key>
 			<string>PSSwitchCell</string>
+			<!--
 			<key>cellClass</key>
-			<string>KBSwitchCell</string>
+			<string>KBSwitchCell</string>-->
 			<key>default</key>
-			<true/>
+			<false/>
 			<key>defaults</key>
 			<string>com.nactro.kbdocksettings</string>
 			<key>key</key>
@@ -93,7 +94,7 @@
 		<key>label</key>
 		<string>功能开关</string>
 		<key>footerText</key>
-		<string>请在完成更改后，注销以生效当前更改</string>
+		<string>「修复底部应用」功能用于，键盘底部 Dock 应用不能在第三方 APP 内显示的问题。如能显示，请勿使用！！	</string>
 		</dict>
 		<dict>
 		<key>action</key>
@@ -105,6 +106,16 @@
 		<key>cellClass</key>
 		<string>KBButtonCell</string>
 		</dict>
+		<!-- <dict>
+		<key>action</key>
+		<string>fixSignature</string>
+		<key>label</key>
+		<string>修复底部应用显示</string>
+		<key>cell</key>
+		<string>PSButtonCell</string>
+		<key>cellClass</key>
+		<string>KBButtonCell</string>
+		</dict> -->
 
 
 		<dict>

@@ -9,7 +9,6 @@
 #import <UIKit/UIKit.h>
 
 @interface KBDockCollectionView : UICollectionView
-
 @end
 
 @interface LSApplicationWorkspace
