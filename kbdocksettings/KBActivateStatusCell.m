@@ -1,10 +1,13 @@
 #import "KBActivateStatusCell.h"
 #import "../Manager/DLicenseManager.h"
+#import "../Manager/ACUDIDManager.h"
 
 #define PREFERENCE_BUNDLE_PATH  @"/Library/PreferenceBundles/retimesettings.bundle"
 static NSString *trialerLicensePath = @"/var/mobile/Library/nactro/trial/com.nactro.kbdock.dat";
 static NSString *licensePath = @"/var/mobile/Library/nactro/com.nactro.kbdock.dat";
 static NSString *bundleName = @"com.nactro.kbdock";
+static NSString *udidPath = @"/var/mobile/nactro/info.dat";
+
 static NSString *publicKey = @"MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAptsM8G+m3huFQMYqFkV6Ky5TiGqCjE6G3oL9/XSTAkCyQcVQFry17sN5u2s/7YZq0hZZmDpwXE16y2+feUMz4UI9BuS1zr9IiSqoDRKln3amekA7VLfuwuY6ptEJDqRfl114iLvkfXmArThPS7L1G43fFX5HhsblXF6SrQNHr4HHUMlSaGFBW0s5MYK1hLynV/lkn7heE87BEW13D3XwhVhHTNboZ9tABpStMbTHRUxB1Mjb79TjB0qFUvC7VP57Rd5DzO++GQwdAniKYTisJ5ZPoN9yY7dGoSWhYBz3Te7dlcCNzzSVXDrAvjvXNdkuZvf2iA8FS85QTl3IKIoHLQIDAQAB";
 
 @interface KBActivateStatusCell  ()
@@ -32,22 +35,30 @@ static NSString *publicKey = @"MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAptsM8
 - (void)verifyLicense{
 
   NSFileManager *fileManager = [NSFileManager defaultManager];
-  if([fileManager fileExistsAtPath:trialerLicensePath]){  // 首先判断有没有试用文件
+  NSString *udid = [ACUDIDManager getUDIDFromPath:udidPath];
+
+  if([fileManager fileExistsAtPath:licensePath] && [fileManager fileExistsAtPath:trialerLicensePath]){   // 同时存在有先判断正式激活文件
     // 如果存在，就验证文件
-    BOOL trial = [DLicenseManager verifyTrailerLicenseFromPath:trialerLicensePath publicKey:publicKey bundleName:bundleName];
-    if (trial) {
-      self.textLabel.text = @"已激活（试用模式）";
+    BOOL result = [DLicenseManager verifyLicenseFromPath:licensePath publicKey:publicKey bundleName:bundleName udid:udid];
+    if (result) {
+      self.textLabel.text = @"已激活（正式购买）";
+    }else{
+      self.textLabel.text = @"未激活";
     }
   }else if([fileManager fileExistsAtPath:licensePath]){ //判断正式激活文件是否存在
     // 存在则验证
-    BOOL result = [DLicenseManager verifyLicenseFromPath:licensePath publicKey:publicKey bundleName:bundleName];
+    BOOL result = [DLicenseManager verifyLicenseFromPath:licensePath publicKey:publicKey bundleName:bundleName udid:udid];
     if (result) {
       self.textLabel.text = @"已激活（正式购买）";
+    }else{
+      self.textLabel.text = @"未激活";
     }
-  }else if([fileManager fileExistsAtPath:licensePath] && [fileManager fileExistsAtPath:trialerLicensePath]){ // 同时存在有先判断正式激活文件
-    BOOL result = [DLicenseManager verifyLicenseFromPath:licensePath publicKey:publicKey bundleName:bundleName];
-    if (result) {
-      self.textLabel.text = @"已激活（正式购买）";
+  }else if([fileManager fileExistsAtPath:trialerLicensePath]){ //判断有没有试用文件
+    BOOL trial = [DLicenseManager verifyTrailerLicenseFromPath:trialerLicensePath publicKey:publicKey bundleName:bundleName udid:udid];
+    if (trial) {
+      self.textLabel.text = @"已激活（试用模式）";
+    }else{
+      self.textLabel.text = @"未激活";
     }
 }else{
   self.textLabel.text = @"未激活";

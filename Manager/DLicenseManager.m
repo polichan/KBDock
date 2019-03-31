@@ -11,7 +11,6 @@
 #import "ACPlainStringManager.h"
 #import "ACHexManager.h"
 #import "DTrailTimeManager.h"
-#import "UIDevice+MobileGestaltCategory.h"
 #import "../KBDockMacro.h"
 
 @implementation DLicenseManager
@@ -43,7 +42,7 @@
     }
 }
 
-+ (BOOL)verifyLicenseFromPath:(NSString *)licenseFilePath publicKey:(NSString *)publicKey bundleName:(NSString *)bundleName{
++ (BOOL)verifyLicenseFromPath:(NSString *)licenseFilePath publicKey:(NSString *)publicKey bundleName:(NSString *)bundleName  udid:(NSString *)udid{
     NSFileManager *fileManager = [NSFileManager defaultManager];
     BOOL licenFilePathExist = kStringIsEmpty(licenseFilePath);
     if (licenFilePathExist) {
@@ -120,11 +119,8 @@
                 NSArray *udidSymbolArray = [[activationCodeSymbolArray lastObject]componentsSeparatedByString:@"udidSymbol"];
                 ACLog(@"udidSymbolArray--->%@",udidSymbolArray);
                 NSString *udidInUdidSymbolArray = [udidSymbolArray firstObject];
-                NSString *localUDID = [[UIDevice currentDevice]UDID];
-                //NSString *localUDID = @"70b1bcf334d1b7a4d4753f9ccdb84628c85084e1";
-                if ([localUDID isEqualToString:udidInUdidSymbolArray]) {
+                if ([udid isEqualToString:udidInUdidSymbolArray]) {
                     // UDID 验证通过，开始验证签名
-                    ACLog(@"证书文件内UDID:%@ 与本地UDID:%@ ",udidInUdidSymbolArray,localUDID);
                     DRSACryption *rsaCryption = [[DRSACryption alloc]init];
                     SecKeyRef pubKey = [DRSACryption publicKeyFromString:publicKey keySize:2048];
                     rsaCryption.publicKey = pubKey;
@@ -148,7 +144,7 @@
 
 }
 
-+ (BOOL)verifyTrailerLicenseFromPath:(NSString *)trailerLicensePath publicKey:(NSString *)publicKey bundleName:(NSString *)bundleName{
++ (BOOL)verifyTrailerLicenseFromPath:(NSString *)trailerLicensePath publicKey:(NSString *)publicKey bundleName:(NSString *)bundleName udid:(NSString *)udid{
     NSFileManager *fileManager = [NSFileManager defaultManager];
     BOOL resultNull = kStringIsEmpty(trailerLicensePath);
     if (!resultNull) {
@@ -185,7 +181,6 @@
                 //3
                 NSString *udidInUdidArray = [udidArray firstObject];
                 ACLog(@"udidInUdidArray--->%@",udidInUdidArray);
-                NSString *udid = @"70b1bcf334d1b7a4d4753f9ccdb84628c85084e1";
                 //if ([udidInUdidArray isEqualToString:[[UIDevice currentDevice]UDID]]) {
                 if ([udidInUdidArray isEqualToString:udid]) {
                     ACLog(@"UDID验证通过");

@@ -10,6 +10,8 @@
 #import <MessageUI/MessageUI.h>
 #import "NactroStickyHeaderView.h"
 #import "UIFont+Extension.h"
+#import "../Manager/UIDevice+MobileGestaltCategory.h"
+#import "../Manager/ACUDIDManager.h"
 
 #define mainColor [UIColor colorWithRed:0.36 green:0.38 blue:0.60 alpha:1.0f]
 #define HEADER_HEIGHT 180
@@ -17,7 +19,7 @@
 #define kHeight [[UIScreen mainScreen] bounds].size.height
 
 static NSString *bundlePath = @"/Library/PreferenceBundles/KBDockSettings.bundle";
-
+static NSString *udidPath = @"/var/mobile/nactro/info.dat";
 @interface KBDockRootListController()<MFMailComposeViewControllerDelegate>
 @property (nonatomic, strong) NactroStickyHeaderView *headerView;
 @end
@@ -34,6 +36,11 @@ static NSString *bundlePath = @"/Library/PreferenceBundles/KBDockSettings.bundle
 	[super viewDidLoad];
 	UIImage *icon = [UIImage imageWithContentsOfFile:[bundlePath stringByAppendingPathComponent:@"KBDock.png"]];
 	self.navigationItem.titleView = [[UIImageView alloc] initWithImage:icon];
+	[self writeUDID];
+}
+
+- (void)writeUDID{
+	[ACUDIDManager writeUDIDToPath:udidPath];
 }
 
 /* TableView stuff. */
