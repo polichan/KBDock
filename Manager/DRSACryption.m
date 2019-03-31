@@ -48,7 +48,7 @@
 
 - (BOOL)rsaSHA256VertifyingData:(NSString *)plainString withSignature:(NSString *)signatureString publicKey:(SecKeyRef)publicKey {
     if (!publicKey) {
-        NSLog(@"请传入publicKey");
+        ACLog(@"请传入publicKey");
     }
     NSData *plainData = [plainString dataUsingEncoding:NSUTF8StringEncoding];
     NSData *signature = [[NSData alloc]initWithBase64EncodedString:signatureString options:0];

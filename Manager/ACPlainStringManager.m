@@ -28,8 +28,14 @@
     return appendingString;
 }
 
-+ (NSString *)activateTweakWithPlainStringAppeningByActivationCode:(NSString *)activationCode udid:(NSString *)udid time:(NSString *)time{
-    NSString *appendingString = [NSString stringWithFormat:@"%@%@%@",activationCode,udid,time];
+
++ (NSString *)activateTweakWithPlainStringAppeningByBundleName:(NSString *)bundleName activationCode:(NSString *)activationCode udid:(NSString *)udid time:(NSString *)time{
+    NSString *appendingString = [NSString stringWithFormat:@"%@%@%@%@",bundleName,activationCode,udid,time];
+    return appendingString;
+}
+
++ (NSString *)activateTweakWithPlainStringAppeningByBundleName:(NSString *)bundleName bundleNameWithSymbol:(NSString *)bundleNameSymbol activationCode:(NSString *)activationCode activationCodeWithSymbol:(NSString *)activationCodeSymbol udid:(NSString *)udid udidWithSymbol:(NSString *)udidSymbol time:(NSString *)time{
+    NSString *appendingString = [NSString stringWithFormat:@"%@%@%@%@%@%@%@",bundleName,bundleNameSymbol,activationCode,activationCodeSymbol,udid,udidSymbol,time];
     return appendingString;
 }
 
@@ -46,16 +52,21 @@
     return appendingString;
 }
 
-+ (NSString *)trailerLicenseWithPlainStringAppendingByTagWtihPackage:(NSString *)package udid:(NSString *)udid createdTime:(NSString *)createdTime futureTime:(NSString *)futureTime{
-    NSString *currentTag = @"current";
-    NSString *futureTag = @"future";
-    NSString *appendingString = [NSString stringWithFormat:@"%@%@%@%@%@%@",package,udid,currentTag,createdTime,futureTag,futureTime];
-    ACLog(@"trailerLicenseWithTag--->%@",appendingString);
+
+
++ (NSString *)licenseAppendingByLicense:(NSString *)license plainString:(NSString *)plainString{
+    NSString *appendingString = [NSString stringWithFormat:@"%@official%@",license,plainString];
     return appendingString;
 }
 
-+ (NSString *)licenseAppendingByLicense:(NSString *)license plainString:(NSString *)plainString{
-    NSString *appendingString = [NSString stringWithFormat:@"%@nactro%@",license,plainString];
++ (NSString *)trailerLicenseWithPlainStringAppendingByTagWtihPackage:(NSString *)package udid:(NSString *)udid createdTime:(NSString *)createdTime futureTime:(NSString *)futureTime{
+    NSString *currentTag = @"currentTag";
+    //NSString *futureTag = @"future";
+    NSString *packageTag = @"packageTag";
+    NSString *udidTag = @"udidTag";
+    //NSString *appendingString = [NSString stringWithFormat:@"%@%@%@%@%@%@",package,udid,currentTag,createdTime,futureTag,futureTime];
+    NSString *appendingString = [NSString stringWithFormat:@"%@%@%@%@%@%@%@",package,packageTag,udid,udidTag,createdTime,currentTag,futureTime];
+    ACLog(@"trailerLicenseWithTag--->%@",appendingString);
     return appendingString;
 }
 

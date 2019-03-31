@@ -1,7 +1,7 @@
 Package: com.nactro.kbdock
 Name: 快捷键盘
 Depends: mobilesubstrate, devs.nactro.achelper, applist
-Version: 1.0.2
+Version: 1.0.3
 Architecture: iphoneos-arm
 Description: 在 iPhone X 键盘底部 Dock 栏实现高效应用切换功能。
 Maintainer: Nactro

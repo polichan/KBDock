@@ -5,7 +5,7 @@
 static NSString *KBDockSettingsPlist = @"/var/mobile/Library/Preferences/com.nactro.kbdocksettings.plist";
 // static NSString *trialerLicensePath = @"/var/mobile/nactro/trial/com.nactro.kbdock.dat";
 // static NSString *licensePath = @"/var/mobile/nactro/com.nactro.kbdock.dat";
-
+static NSString *bundleName = @"com.nactro.kbdock";
 static NSString *trialerLicensePath = @"/var/mobile/Library/nactro/trial/com.nactro.kbdock.dat";
 static NSString *licensePath = @"/var/mobile/Library/nactro/com.nactro.kbdock.dat";
 
@@ -27,7 +27,7 @@ static void verifySignature(){
   NSFileManager *fileManager = [NSFileManager defaultManager];
   if([fileManager fileExistsAtPath:trialerLicensePath]){
     // 如果存在，就验证文件
-    BOOL trial = [DLicenseManager verifyTrailerLicenseFromPath:trialerLicensePath publicKey:publicKey];
+    BOOL trial = [DLicenseManager verifyTrailerLicenseFromPath:trialerLicensePath publicKey:publicKey bundleName:bundleName];
     if (trial) {
       licenseStatus = YES;
     }else{
@@ -35,14 +35,14 @@ static void verifySignature(){
     }
   }else if([fileManager fileExistsAtPath:licensePath]){ //判断正式激活文件是否存在
     // 存在则验证
-    BOOL result = [DLicenseManager verifyLicenseFromPath:licensePath publicKey:publicKey];
+    BOOL result = [DLicenseManager verifyLicenseFromPath:licensePath publicKey:publicKey bundleName:bundleName];
     if (result) {
       licenseStatus = YES;
     }else{
       licenseStatus = NO;
     }
   }else if([fileManager fileExistsAtPath:licensePath] && [fileManager fileExistsAtPath:trialerLicensePath]){ // 同时存在有先判断正式激活文件
-    BOOL result = [DLicenseManager verifyLicenseFromPath:licensePath publicKey:publicKey];
+    BOOL result = [DLicenseManager verifyLicenseFromPath:licensePath publicKey:publicKey bundleName:bundleName];
     if (result) {
       licenseStatus = YES;
     }else{

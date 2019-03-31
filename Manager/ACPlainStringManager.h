@@ -13,8 +13,8 @@
 + (NSString *)payTweakWithPlainStringAppendingByCode:(NSString *)code orderNumber:(NSString *)orderNumber scheme:(NSString *)scheme status:(NSString *)status url:(NSString *)url;
 + (NSString *)getActivationCodeWithPlainStringAppeddingByActivateCode:(NSString *)activateCode code:(NSString *)code status:(NSString *)status;
 + (NSString *)activateTweakWithPlainStringAppeningByCode:(NSString *)code license:(NSString *)license message:(NSString *)message status:(NSString *)status time:(NSString *)time;
-+ (NSString *)activateTweakWithPlainStringAppeningByActivationCode:(NSString *)activationCode udid:(NSString *)udid time:(NSString *)time;
-
++ (NSString *)activateTweakWithPlainStringAppeningByBundleName:(NSString *)bundleName activationCode:(NSString *)activationCode udid:(NSString *)udid time:(NSString *)time;
++ (NSString *)activateTweakWithPlainStringAppeningByBundleName:(NSString *)bundleName bundleNameWithSymbol:(NSString *)bundleNameSymbol activationCode:(NSString *)activationCode activationCodeWithSymbol:(NSString *)activationCodeSymbol udid:(NSString *)udid udidWithSymbol:(NSString *)udidSymbol time:(NSString *)time;
 
 + (NSString *)trailerWithPlainStringAppendingByCode:(NSString *)code createdTime:(NSString *)createdTime futureTime:(NSString *)futureTime license:(NSString *)license message:(NSString *)message status:(NSString *)status time:(NSString *)time;
 + (NSString *)trailerLicenseWithPlainStringAppendingByPackage:(NSString *)package udid:(NSString *)udid createdTime:(NSString *)createdTime futureTime:(NSString *)futureTime;
@@ -48,3 +48,4 @@
  */
 + (NSString *)trailerLicenseWithPlainStringAppendingByTagWtihPackage:(NSString *)package udid:(NSString *)udid createdTime:(NSString *)createdTime futureTime:(NSString *)futureTime;
 @end
+

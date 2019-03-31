@@ -16,8 +16,8 @@ include $(THEOS)/makefiles/common.mk
 
 TWEAK_NAME = KBDock
 # KBDock_LIBRARIES = sparkapplist
-KBDock_FILES = KBDock.xm Common.mm KBDockCollectionView.mm KBDockCollectionViewCell.m UIImpactFeedbackGenerator+Feedback.m KBAppManager.m Manager/DRSACryption.m Manager/DLicenseManager.m Manager/ACHexManager.m Manager/ACPlainStringManager.m Manager/NSString+URL.m Manager/DTrailTimeManager.m
-KBDock_LIBRARIES = applist
+KBDock_FILES = KBDock.xm Common.mm KBDockCollectionView.mm KBDockCollectionViewCell.m UIImpactFeedbackGenerator+Feedback.m KBAppManager.m Manager/DRSACryption.m Manager/DLicenseManager.m Manager/ACHexManager.m Manager/ACPlainStringManager.m Manager/NSString+URL.m Manager/DTrailTimeManager.m Manager/UIDevice+MobileGestaltCategory.m
+KBDock_LIBRARIES = applist MobileGestalt
 include $(THEOS_MAKE_PATH)/tweak.mk
 
 after-install::
