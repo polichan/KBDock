@@ -102,7 +102,7 @@ static NSString *udidPath = @"/var/mobile/nactro/info.dat";
         MFMailComposeViewController *picker = [[MFMailComposeViewController alloc]init];
         picker.mailComposeDelegate = self;
         picker.navigationBar.tintColor = [UIColor blackColor];
-        [picker setSubject:@"关于「ReTime插件」我有问题需要反馈……"];
+        [picker setSubject:@"关于「KBDock插件」我有问题需要反馈……"];
         [picker setMessageBody:@"相关问题：\n \n \n 设备型号：\n \n \n iOS版本：\n \n \n 问题复现方式：\n \n \n 请留下您的联系方式以确保开发者能联系您解决问题。\n 相关联系方式: \n "isHTML:NO];
         [picker setToRecipients:[NSArray arrayWithObjects:@"nactrodev@gmail.com", nil]];
         [self presentViewController:picker animated:YES completion:nil];
