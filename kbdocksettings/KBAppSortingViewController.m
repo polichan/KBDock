@@ -77,12 +77,11 @@ static NSString *bundlePath = @"/Library/PreferenceBundles/KBDockSettings.bundle
     return self.appArray.count;
 }
 
-//
+
 - (void)tableView:(UITableView *)tableView moveRowAtIndexPath:(NSIndexPath *)sourceIndexPath toIndexPath:(NSIndexPath *)destinationIndexPath{
-    // [self.appArray exchangeObjectAtIndex:sourceIndexPath.row withObjectAtIndex:destinationIndexPath.row];
-    // NSLog(@"self.appArrayWithSoring ----> %@",self.appArray);
+    [self.appArray exchangeObjectAtIndex:sourceIndexPath.row withObjectAtIndex:destinationIndexPath.row];
 }
-//
+
 - (UITableViewCellEditingStyle)tableView:(UITableView *)tableView editingStyleForRowAtIndexPath:(NSIndexPath *)indexPath{
     return UITableViewCellEditingStyleNone;
 }
@@ -90,7 +89,7 @@ static NSString *bundlePath = @"/Library/PreferenceBundles/KBDockSettings.bundle
 - (BOOL)tableView:(UITableView *)tableView shouldIndentWhileEditingRowAtIndexPath:(NSIndexPath *)indexPath{
     return NO;
 }
-//
+
 - (BOOL)tableView:(UITableView *)tableView canMoveRowAtIndexPath:(NSIndexPath *)indexPath{
     return YES;
 }
@@ -105,7 +104,7 @@ static NSString *bundlePath = @"/Library/PreferenceBundles/KBDockSettings.bundle
 		[self.navigationController.navigationController.navigationBar setBackgroundImage:[UIImage imageWithContentsOfFile:[bundlePath stringByAppendingPathComponent:@"NavBarBG.png"]] forBarMetrics:UIBarMetricsDefault];
 		self.navigationController.navigationController.navigationBar.tintColor = [UIColor whiteColor];
 		[self.navigationController.navigationController.navigationBar setShadowImage:[UIImage new]];
-    self.navigationItem.title = @"排序应用";
+    self.navigationItem.title = @"自定义排序应用";
     self.navigationController.navigationController.navigationBar.titleTextAttributes=
     @{NSForegroundColorAttributeName:[UIColor whiteColor],
       NSFontAttributeName:[UIFont PingFangMediumForSize:18]};
@@ -116,6 +115,7 @@ static NSString *bundlePath = @"/Library/PreferenceBundles/KBDockSettings.bundle
 		[UIApplication sharedApplication].statusBarStyle = UIStatusBarStyleDefault;
 		[self.navigationController.navigationController.navigationBar setBackgroundImage:nil forBarMetrics:UIBarMetricsDefault];
 		self.navigationController.navigationController.navigationBar.tintColor = nil;
+    self.navigationController.navigationController.navigationBar.titleTextAttributes = nil;
 }
 
 #pragma mark - lazyload
