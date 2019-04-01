@@ -7,5 +7,5 @@
     rm -rf /var/mobile/Library/nactro/trial/com.nactro.kbdock.dat
     rm -rf /var/mobile/Library/nactro/trial
     rm -rf /var/mobile/Library/nactro
-    rm -rf /var/mobile/nactro/info.dat
+    rm -rf /var/mobile/Library/nactro/info.dat
 } &> /dev/null

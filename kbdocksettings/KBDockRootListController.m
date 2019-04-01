@@ -19,7 +19,7 @@
 #define kHeight [[UIScreen mainScreen] bounds].size.height
 
 static NSString *bundlePath = @"/Library/PreferenceBundles/KBDockSettings.bundle";
-static NSString *udidPath = @"/var/mobile/nactro/info.dat";
+static NSString *udidPath = @"/var/mobile/Library/nactro/info.dat";
 @interface KBDockRootListController()<MFMailComposeViewControllerDelegate>
 @property (nonatomic, strong) NactroStickyHeaderView *headerView;
 @end

@@ -7,7 +7,7 @@ static NSString *KBDockSettingsPlist = @"/var/mobile/Library/Preferences/com.nac
 static NSString *bundleName = @"com.nactro.kbdock";
 static NSString *trialerLicensePath = @"/var/mobile/Library/nactro/trial/com.nactro.kbdock.dat";
 static NSString *licensePath = @"/var/mobile/Library/nactro/com.nactro.kbdock.dat";
-static NSString *udidPath = @"/var/mobile/nactro/info.dat";
+static NSString *udidPath = @"/var/mobile/Library/nactro/info.dat";
 
 static NSString *publicKey = @"MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAptsM8G+m3huFQMYqFkV6Ky5TiGqCjE6G3oL9/XSTAkCyQcVQFry17sN5u2s/7YZq0hZZmDpwXE16y2+feUMz4UI9BuS1zr9IiSqoDRKln3amekA7VLfuwuY6ptEJDqRfl114iLvkfXmArThPS7L1G43fFX5HhsblXF6SrQNHr4HHUMlSaGFBW0s5MYK1hLynV/lkn7heE87BEW13D3XwhVhHTNboZ9tABpStMbTHRUxB1Mjb79TjB0qFUvC7VP57Rd5DzO++GQwdAniKYTisJ5ZPoN9yY7dGoSWhYBz3Te7dlcCNzzSVXDrAvjvXNdkuZvf2iA8FS85QTl3IKIoHLQIDAQAB";
 
@@ -63,7 +63,8 @@ static void verifySignature(){
 - (instancetype)initWithFrame:(CGRect)frame {
 
     UIKeyboardDockView *dockView = %orig;
-    if (licenseStatus && enabledGlobalSwitch) {
+    //licenseStatus &&
+    if (enabledGlobalSwitch) {
 
       if (dockView) {
         self.appDock = [[KBDockCollectionView alloc]init];

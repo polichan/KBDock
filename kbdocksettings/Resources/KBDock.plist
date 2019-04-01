@@ -62,6 +62,16 @@
 			<key>ALAllowsSelection</key>
 			<false/>
 		</dict>
+		<dict>
+			<key>cell</key>
+			<string>PSLinkCell</string>
+			<key>label</key>
+			<string>排序底部 Dock 应用</string>
+			<key>isController</key>
+			<true/>
+			<key>detail</key>
+			<string>KBAppSortingViewController</string>
+		</dict>
 
 		<dict>
 		<key>cell</key>
@@ -206,6 +216,6 @@
 
 	</array>
 	<key>title</key>
-	<string>快捷键盘DOCK</string>
+	<string>快捷键盘</string>
 </dict>
 </plist>
