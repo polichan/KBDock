@@ -12,6 +12,7 @@
 #import "UIFont+Extension.h"
 #import "../Manager/UIDevice+MobileGestaltCategory.h"
 #import "../Manager/ACUDIDManager.h"
+#import "KBAppSortingViewController.h"
 
 #define mainColor [UIColor colorWithRed:0.36 green:0.38 blue:0.60 alpha:1.0f]
 #define HEADER_HEIGHT 180
@@ -60,6 +61,10 @@ static NSString *udidPath = @"/var/mobile/Library/nactro/info.dat";
 	}
 }
 
+- (void)goSorting{
+	KBAppSortingViewController *vc = [[KBAppSortingViewController alloc]init];
+	[self.navigationController pushViewController:vc animated:YES];
+}
 #pragma mark - 保存plist
 - (id)readPreferenceValue:(PSSpecifier*)specifier {
 	NSString *path = [NSString stringWithFormat:@"/var/mobile/Library/Preferences/%@.plist", specifier.properties[@"defaults"]];

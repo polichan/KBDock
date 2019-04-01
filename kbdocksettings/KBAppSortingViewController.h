@@ -12,6 +12,6 @@
 
 @interface PSEditableListController : PSListController
 @end
-@interface KBAppSortingViewController : PSEditableListController
-//@interface KBAppSortingViewController : UIViewController
+//@interface KBAppSortingViewController : PSEditableListController
+@interface KBAppSortingViewController : UIViewController
 @end

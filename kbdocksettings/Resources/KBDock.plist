@@ -63,6 +63,17 @@
 			<false/>
 		</dict>
 		<dict>
+		<key>action</key>
+		<string>goSorting</string>
+		<key>label</key>
+		<string>自定义排序</string>
+		<key>cell</key>
+		<string>PSButtonCell</string>
+		<key>cellClass</key>
+		<string>KBButtonCell</string>
+		</dict>
+		<!--
+		<dict>
 			<key>cell</key>
 			<string>PSLinkCell</string>
 			<key>label</key>
@@ -72,6 +83,7 @@
 			<key>detail</key>
 			<string>KBAppSortingViewController</string>
 		</dict>
+	-->
 
 		<dict>
 		<key>cell</key>

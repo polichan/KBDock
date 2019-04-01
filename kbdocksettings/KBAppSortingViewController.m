@@ -63,7 +63,7 @@ static NSString *bundlePath = @"/Library/PreferenceBundles/KBDockSettings.bundle
     //cell.textLabel.text = self.appArray[indexPath.row];
     return cell;
 }
-//
+
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView{
     return 1;
 }
@@ -113,8 +113,6 @@ static NSString *bundlePath = @"/Library/PreferenceBundles/KBDockSettings.bundle
 }
 
 #pragma mark - lazyload
-
-
 - (UITableView *)sortingTableView{
     if (!_sortingTableView) {
         _sortingTableView = [[UITableView alloc]initWithFrame:CGRectMake(0, 0, kWidth, kHeight) style:UITableViewStyleGrouped];
