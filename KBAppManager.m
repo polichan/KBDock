@@ -54,7 +54,7 @@ static KBAppManager *_sharedManager = nil;
     return array;
 }
 
-- (NSMutableArray *)getSortedAppListArratFromPath:(NSString *)path{
+- (NSMutableArray *)getSortedAppListArrayFromPath:(NSString *)path{
     NSMutableArray *array = [NSMutableArray array];
     array  = [NSArray arrayWithContentsOfFile:path];
     return array;

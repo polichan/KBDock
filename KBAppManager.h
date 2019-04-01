@@ -11,7 +11,7 @@
 + (instancetype)sharedManager;
 
 - (NSMutableArray *)getAppListToArrayWithAppPlistPath:(NSString *)appPlistPath;
-- (NSMutableArray *)getSortedAppListArratFromPath:(NSString *)path;
+- (NSMutableArray *)getSortedAppListArrayFromPath:(NSString *)path;
 - (UIImage *)getImageWithDisplayIdentifier:(NSString *)displayIdentifier;
 - (void)updateAppListWithNewArray:(NSMutableArray *)array toPath:(NSString *)path;
 @end

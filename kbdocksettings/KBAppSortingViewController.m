@@ -42,7 +42,7 @@ static NSString *originalPlistPath = @"/var/mobile/Library/Preferences/com.nactr
     NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
     if ([defaults boolForKey:@"KBDockUserHaveSortedAppPlist"]) {
     // 从改过的数组里面读取
-    self.appArray = [[KBAppManager sharedManager]getSortedAppListArratFromPath:sortedPlistPath];
+    self.appArray = [[KBAppManager sharedManager]getSortedAppListArrayFromPath:sortedPlistPath];
     }else{
     // 从原来的 plist 中读取
     self.appArray = [[KBAppManager sharedManager]getAppListToArrayWithAppPlistPath:originalPlistPath];

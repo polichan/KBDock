@@ -13,7 +13,7 @@
 #import "KBAppManager.h"
 
 static NSString *sortedPlist = @"/var/mobile/Library/Preferences/com.nactro.kbdocksettings.sortedList.plist";
-static NSString *appListPlist = @"/var/mobile/Library/Preferences/com.nactro.kbdocksettings.list.plist";
+static NSString *originalPlist = @"/var/mobile/Library/Preferences/com.nactro.kbdocksettings.list.plist";
 static LSApplicationWorkspace* workspace = [NSClassFromString(@"LSApplicationWorkspace") new];
 
 static BOOL haveSortedPlist = NO;
@@ -56,16 +56,16 @@ static BOOL haveSortedPlist = NO;
     KBDockCollectionViewCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"KBDock" forIndexPath:indexPath];
     UIImage *image;
     if (haveSortedPlist) {
-      image = [[ALApplicationList sharedApplicationList] iconOfSize:ALApplicationIconSizeLarge forDisplayIdentifier:[[KBAppManager sharedManager]getSortedAppListArratFromPath:sortedPlist][indexPath.row]];
+      image = [[ALApplicationList sharedApplicationList] iconOfSize:ALApplicationIconSizeLarge forDisplayIdentifier:[[KBAppManager sharedManager]getSortedAppListArrayFromPath:sortedPlist][indexPath.row]];
     }else{
-      image = [[ALApplicationList sharedApplicationList] iconOfSize:ALApplicationIconSizeLarge forDisplayIdentifier:[[KBAppManager sharedManager]getAppListToArrayWithAppPlistPath:appListPlist][indexPath.row]];
+      image = [[ALApplicationList sharedApplicationList] iconOfSize:ALApplicationIconSizeLarge forDisplayIdentifier:[[KBAppManager sharedManager]getAppListToArrayWithAppPlistPath:originalPlist][indexPath.row]];
     }
     cell.appImageView.image = image;
     return cell;
 }
 
 - (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section {
-  return [[[KBAppManager sharedManager]getAppListToArrayWithAppPlistPath:appListPlist] count];
+  return [[[KBAppManager sharedManager]getAppListToArrayWithAppPlistPath:originalPlist] count];
 }
 
 - (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout *)collectionViewLayout sizeForItemAtIndexPath:(NSIndexPath *)indexPath {
@@ -76,9 +76,9 @@ static BOOL haveSortedPlist = NO;
     [UIImpactFeedbackGenerator generateFeedbackWithLightStyle];
     dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^(void){
       if (haveSortedPlist) {
-        [workspace openApplicationWithBundleID:[[KBAppManager sharedManager]getSortedAppListArratFromPath:sortedPlist][indexPath.row]];
+        [workspace openApplicationWithBundleID:[[KBAppManager sharedManager]getSortedAppListArrayFromPath:sortedPlist][indexPath.row]];
       }else{
-        [workspace openApplicationWithBundleID:[[KBAppManager sharedManager]getAppListToArrayWithAppPlistPath:appListPlist][indexPath.row]];
+        [workspace openApplicationWithBundleID:[[KBAppManager sharedManager]getAppListToArrayWithAppPlistPath:originalPlist][indexPath.row]];
       }
     });
 }
