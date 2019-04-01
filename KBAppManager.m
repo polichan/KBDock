@@ -44,7 +44,7 @@ static KBAppManager *_sharedManager = nil;
 
 - (NSMutableArray *)getAppListToArrayWithAppPlistPath:(NSString *)plistPath{
     NSDictionary *appListDict= [NSDictionary dictionaryWithContentsOfFile:plistPath];
-    NSMutableArray *array = [NSMutableArray arrayWithCapacity:100];
+    NSMutableArray *array = [NSMutableArray array];
     for (NSString *displayIdentifier in appListDict) {
         BOOL canOpenApp = [[appListDict objectForKey:displayIdentifier]boolValue];
         if (canOpenApp) {
@@ -54,9 +54,19 @@ static KBAppManager *_sharedManager = nil;
     return array;
 }
 
+- (NSMutableArray *)getSortedAppListArratFromPath:(NSString *)path{
+    NSMutableArray *array = [NSMutableArray array];
+    array  = [NSArray arrayWithContentsOfFile:path];
+    return array;
+}
+
 - (UIImage *)getImageWithDisplayIdentifier:(NSString *)displayIdentifier{
   UIImage *image = [[ALApplicationList sharedApplicationList] iconOfSize:ALApplicationIconSizeSmall forDisplayIdentifier:displayIdentifier];
   return image;
+}
+
+- (void)updateAppListWithNewArray:(NSMutableArray *)array toPath:(NSString *)path{
+    [array writeToFile:path atomically:YES];
 }
 
 @end

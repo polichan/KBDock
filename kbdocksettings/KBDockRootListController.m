@@ -65,6 +65,24 @@ static NSString *udidPath = @"/var/mobile/Library/nactro/info.dat";
 	KBAppSortingViewController *vc = [[KBAppSortingViewController alloc]init];
 	[self.navigationController pushViewController:vc animated:YES];
 }
+
+- (void)goResetting{
+	UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"注意" message:@"该功能仅限于您完成过「APP 排序」操作，且打算重新添加应用至 Dock 后再进行「APP 排序」操作的用户。" preferredStyle:UIAlertControllerStyleActionSheet];
+
+	UIAlertAction *confirmAction = [UIAlertAction actionWithTitle:@"重设排序文件" style:UIAlertActionStyleDefault handler:^(UIAlertAction *action) {
+		NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+		[defaults removeObjectForKey:@"KBDockUserHaveSortedAppPlist"];
+		[defaults synchronize];
+	    }];
+	UIAlertAction *cancelAction = [UIAlertAction actionWithTitle:@"取消操作" style:UIAlertActionStyleCancel handler:^(UIAlertAction *action) {
+	 }];
+	    // KVC 改变颜色
+	[cancelAction setValue:[UIColor redColor] forKey:@"_titleTextColor"];
+	[alert addAction:confirmAction];
+	[alert addAction:cancelAction];
+	[self presentViewController:alert animated:YES completion:nil];
+}
+
 #pragma mark - 保存plist
 - (id)readPreferenceValue:(PSSpecifier*)specifier {
 	NSString *path = [NSString stringWithFormat:@"/var/mobile/Library/Preferences/%@.plist", specifier.properties[@"defaults"]];

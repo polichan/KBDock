@@ -9,6 +9,9 @@
 #import <Foundation/Foundation.h>
 @interface KBAppManager : NSObject
 + (instancetype)sharedManager;
+
 - (NSMutableArray *)getAppListToArrayWithAppPlistPath:(NSString *)appPlistPath;
+- (NSMutableArray *)getSortedAppListArratFromPath:(NSString *)path;
 - (UIImage *)getImageWithDisplayIdentifier:(NSString *)displayIdentifier;
+- (void)updateAppListWithNewArray:(NSMutableArray *)array toPath:(NSString *)path;
 @end

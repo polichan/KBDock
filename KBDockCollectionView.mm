@@ -12,8 +12,11 @@
 #import "UIImpactFeedbackGenerator+Feedback.h"
 #import "KBAppManager.h"
 
+static NSString *sortedPlist = @"/var/mobile/Library/Preferences/com.nactro.kbdocksettings.sortedList.plist";
 static NSString *appListPlist = @"/var/mobile/Library/Preferences/com.nactro.kbdocksettings.list.plist";
 static LSApplicationWorkspace* workspace = [NSClassFromString(@"LSApplicationWorkspace") new];
+
+static BOOL haveSortedPlist = NO;
 
 @interface KBDockCollectionView() <UICollectionViewDataSource, UICollectionViewDelegate>
 @property (nonatomic, strong) KBDockCollectionViewCell *appCollectionCell;
@@ -32,15 +35,32 @@ static LSApplicationWorkspace* workspace = [NSClassFromString(@"LSApplicationWor
         self.pagingEnabled = YES;
         [self registerClass:NSClassFromString(@"KBDockCollectionViewCell") forCellWithReuseIdentifier:@"KBDock"];
         self.backgroundColor = [UIColor clearColor];
+
+        [self checkSortedPlistIfExistWithPath:sortedPlist];
     }
     return self;
+}
+
+- (void)checkSortedPlistIfExistWithPath:(NSString *)sortedListPath{
+  NSFileManager *manager = [NSFileManager defaultManager];
+  if ([manager fileExistsAtPath:sortedListPath]) {
+    haveSortedPlist = YES;
+  }else{
+    haveSortedPlist = NO;
+  }
 }
 
 #pragma mark - UICollectionViewDelegate
 
 - (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath {
     KBDockCollectionViewCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"KBDock" forIndexPath:indexPath];
-    cell.appImageView.image = [[ALApplicationList sharedApplicationList] iconOfSize:ALApplicationIconSizeLarge forDisplayIdentifier:[[KBAppManager sharedManager]getAppListToArrayWithAppPlistPath:appListPlist][indexPath.row]];
+    UIImage *image;
+    if (haveSortedPlist) {
+      image = [[ALApplicationList sharedApplicationList] iconOfSize:ALApplicationIconSizeLarge forDisplayIdentifier:[[KBAppManager sharedManager]getSortedAppListArratFromPath:sortedPlist][indexPath.row]];
+    }else{
+      image = [[ALApplicationList sharedApplicationList] iconOfSize:ALApplicationIconSizeLarge forDisplayIdentifier:[[KBAppManager sharedManager]getAppListToArrayWithAppPlistPath:appListPlist][indexPath.row]];
+    }
+    cell.appImageView.image = image;
     return cell;
 }
 

@@ -17,8 +17,11 @@
 #define kHeight [UIScreen mainScreen].bounds.size.height
 
 static NSString *reuseIdentifier = @"sortingApp";
-static NSString *path = @"/var/mobile/Library/Preferences/com.nactro.kbdocksettings.list.plist";
 static NSString *bundlePath = @"/Library/PreferenceBundles/KBDockSettings.bundle";
+
+static NSString *sortedPlistPath = @"/var/mobile/Library/Preferences/com.nactro.kbdocksettings.sortedList.plist";
+static NSString *originalPlistPath = @"/var/mobile/Library/Preferences/com.nactro.kbdocksettings.list.plist";
+
 @interface KBAppSortingViewController ()<UITableViewDelegate,UITableViewDataSource>
 @property (nonatomic, strong) UITableView *sortingTableView;
 @property (nonatomic, strong) NSMutableArray *appArray;
@@ -36,9 +39,18 @@ static NSString *bundlePath = @"/Library/PreferenceBundles/KBDockSettings.bundle
 }
 
 - (void)initData{
-   self.appArray = [[KBAppManager sharedManager]getAppListToArrayWithAppPlistPath:path];
+    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+    if ([defaults boolForKey:@"KBDockUserHaveSortedAppPlist"]) {
+    // 从改过的数组里面读取
+    self.appArray = [[KBAppManager sharedManager]getSortedAppListArratFromPath:sortedPlistPath];
+    }else{
+    // 从原来的 plist 中读取
+    self.appArray = [[KBAppManager sharedManager]getAppListToArrayWithAppPlistPath:originalPlistPath];
+    }
+
    NSLog(@"self.appArray ----> %@",self.appArray);
 }
+
 - (void)initUI{
     self.view.backgroundColor = [UIColor whiteColor];
     self.navigationItem.title = @"自定义 App 排序";
@@ -46,16 +58,22 @@ static NSString *bundlePath = @"/Library/PreferenceBundles/KBDockSettings.bundle
 }
 
 - (void)editButtonOnClicked:(id)sender{
-    BOOL canEdit = self.sortingTableView.editing ;
-    if (!canEdit) {
-        self.sortingTableView.editing = YES;
-        self.editBtn.title = @"保存";
-    }else{
-        self.sortingTableView.editing = NO;
-        self.editBtn.title = @"排序";
-        // 把排序后的内容写入字典
-        //[[KBAppManager sharedManager]updateAppListWithNewArray:self.appArray];
-    }
+  BOOL canEdit = self.sortingTableView.editing ;
+  if (!canEdit) {
+      self.sortingTableView.editing = YES;
+      self.editBtn.title = @"保存";
+
+  }else{
+      self.sortingTableView.editing = NO;
+      // 将标题改为 排序
+      self.editBtn.title = @"排序";
+      // 把排序后的内容写入字典
+      [[KBAppManager sharedManager]updateAppListWithNewArray:self.appArray toPath:sortedPlistPath];
+      // 保存状态
+      NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+      [defaults setBool:YES forKey:@"KBDockUserHaveSortedAppPlist"];
+      [defaults synchronize];
+  }
 }
 
 #pragma mark - tableView delegate
