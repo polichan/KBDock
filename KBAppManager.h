@@ -10,4 +10,5 @@
 @interface KBAppManager : NSObject
 + (instancetype)sharedManager;
 - (NSMutableArray *)getAppListToArrayWithAppPlistPath:(NSString *)appPlistPath;
+- (UIImage *)getImageWithDisplayIdentifier:(NSString *)displayIdentifier;
 @end

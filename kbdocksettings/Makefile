@@ -18,7 +18,6 @@ KBDockSettings_FILES = KBDockRootListController.m KBAppSortingViewController.m .
 KBDockSettings_INSTALL_PATH = /Library/PreferenceBundles
 KBDockSettings_FRAMEWORKS = UIKit Foundation CoreFoundation
 KBDockSettings_LIBRARIES = applist MobileGestalt
-# KBDockSettings_LDFLAGS = -lMobileGestalt
 KBDockSettings_PRIVATE_FRAMEWORKS = Preferences AppSupport
 KBDockSettings_CFLAGS += -fobjc-arc
 

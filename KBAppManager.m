@@ -7,6 +7,7 @@
 //
 
 #import "KBAppManager.h"
+#import <AppList/AppList.h>
 
 static KBAppManager *_sharedManager = nil;
 
@@ -51,6 +52,11 @@ static KBAppManager *_sharedManager = nil;
         }
     }
     return array;
+}
+
+- (UIImage *)getImageWithDisplayIdentifier:(NSString *)displayIdentifier{
+  UIImage *image = [[ALApplicationList sharedApplicationList] iconOfSize:ALApplicationIconSizeSmall forDisplayIdentifier:displayIdentifier];
+  return image;
 }
 
 @end

@@ -11,7 +11,8 @@
 #import "UIFont+Extension.h"
 
 #define IS_iPhoneX ([UIScreen instancesRespondToSelector:@selector(currentMode)] ? CGSizeEqualToSize(CGSizeMake(1125, 2436), [[UIScreen mainScreen] currentMode].size) : NO)
-#define StatusBarHeight (IS_iPhoneX?44:20)
+#define TopHeight (IS_iPhoneX?88:64)
+
 #define kWidth [UIScreen mainScreen].bounds.size.width
 #define kHeight [UIScreen mainScreen].bounds.size.height
 
@@ -64,6 +65,7 @@ static NSString *bundlePath = @"/Library/PreferenceBundles/KBDockSettings.bundle
     cell = [[UITableViewCell alloc]initWithStyle:UITableViewCellStyleDefault reuseIdentifier:reuseIdentifier];
     }
     cell.textLabel.text = self.appArray[indexPath.row];
+    cell.imageView.image = [[KBAppManager sharedManager]getImageWithDisplayIdentifier:self.appArray[indexPath.row]];
     return cell;
 }
 
@@ -119,7 +121,7 @@ static NSString *bundlePath = @"/Library/PreferenceBundles/KBDockSettings.bundle
 #pragma mark - lazyload
 - (UITableView *)sortingTableView{
     if (!_sortingTableView) {
-        _sortingTableView = [[UITableView alloc]initWithFrame:CGRectMake(0, StatusBarHeight , kWidth, kHeight - StatusBarHeight) style:UITableViewStyleGrouped];
+        _sortingTableView = [[UITableView alloc]initWithFrame:CGRectMake(0, TopHeight , kWidth, kHeight -TopHeight) style:UITableViewStyleGrouped];
         [_sortingTableView registerClass:[UITableViewCell class] forCellReuseIdentifier:reuseIdentifier];
         _sortingTableView.delegate = self;
         _sortingTableView.dataSource = self;
