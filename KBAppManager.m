@@ -56,7 +56,7 @@ static KBAppManager *_sharedManager = nil;
 
 - (NSMutableArray *)getSortedAppListArrayFromPath:(NSString *)path{
     NSMutableArray *array = [NSMutableArray array];
-    array  = [NSArray arrayWithContentsOfFile:path];
+    array  = [NSMutableArray arrayWithContentsOfFile:path];
     return array;
 }
 
@@ -69,4 +69,8 @@ static KBAppManager *_sharedManager = nil;
     [array writeToFile:path atomically:YES];
 }
 
+- (NSString *)getApplicationNameFromDisplayIdentifier:(NSString *)displayIdentifier{
+  NSDictionary *applications = [[ALApplicationList sharedApplicationList] applicationsFilteredUsingPredicate:nil onlyVisible:nil titleSortedIdentifiers:nil];
+  return [applications objectForKey:displayIdentifier];
+}
 @end

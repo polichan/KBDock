@@ -62,15 +62,23 @@ static NSString *sortedPlistPath = @"/var/mobile/Library/Preferences/com.nactro.
 	}
 }
 
+// - (void)scrollViewDidScroll:(UIScrollView *)scrollView{
+//     CGFloat y = scrollView.contentOffset.y;
+//     if (y < - 100) {
+// 			UIAlertView *easterEggsAlert =[[UIAlertView alloc]initWithTitle:@"提示" message:@"恭喜你发现了这个彩蛋呢 \n 愚人节快乐 \n 🎉" delegate:self cancelButtonTitle:nil otherButtonTitles:@"好的", nil];
+// 			[easterEggsAlert show];
+//     }
+// }
+
 - (void)goSorting{
 	KBAppSortingViewController *vc = [[KBAppSortingViewController alloc]init];
 	[self.navigationController pushViewController:vc animated:YES];
 }
 
 - (void)goResetting{
-	UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"注意" message:@"该功能仅限于您完成过「自定义排序」操作，且打算重新添加应用至 Dock 后再进行「自定义排序」操作的用户。" preferredStyle:UIAlertControllerStyleActionSheet];
+	UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"注意" message:@"该功能仅限于您完成过「自定义排序应用」操作，且打算重新添加应用至 Dock 后再进行「自定义排序应用」操作的用户。" preferredStyle:UIAlertControllerStyleActionSheet];
 
-	UIAlertAction *confirmAction = [UIAlertAction actionWithTitle:@"刷新「自定义排序」页面缓存" style:UIAlertActionStyleDefault handler:^(UIAlertAction *action) {
+	UIAlertAction *confirmAction = [UIAlertAction actionWithTitle:@"刷新「自定义排序应用」页面缓存" style:UIAlertActionStyleDefault handler:^(UIAlertAction *action) {
 		NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
 		[defaults removeObjectForKey:@"KBDockUserHaveSortedAppPlist"];
 		[defaults synchronize];

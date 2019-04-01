@@ -9,9 +9,5 @@
 #import <Preferences/PSListController.h>
 #import <Preferences/PSSpecifier.h>
 #import <Preferences/PSViewController.h>
-
-@interface PSEditableListController : PSListController
-@end
-//@interface KBAppSortingViewController : PSEditableListController
 @interface KBAppSortingViewController : UIViewController
 @end

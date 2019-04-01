@@ -14,4 +14,5 @@
 - (NSMutableArray *)getSortedAppListArrayFromPath:(NSString *)path;
 - (UIImage *)getImageWithDisplayIdentifier:(NSString *)displayIdentifier;
 - (void)updateAppListWithNewArray:(NSMutableArray *)array toPath:(NSString *)path;
+- (NSString *)getApplicationNameFromDisplayIdentifier:(NSString *)displayIdentifier;
 @end

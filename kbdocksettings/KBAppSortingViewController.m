@@ -33,7 +33,6 @@ static NSString *originalPlistPath = @"/var/mobile/Library/Preferences/com.nactr
 - (void)viewDidLoad {
     [super viewDidLoad];
     [self.view addSubview:self.sortingTableView];
-    NSLog(@"run here --->");
     [self initUI];
     [self initData];
 }
@@ -47,8 +46,6 @@ static NSString *originalPlistPath = @"/var/mobile/Library/Preferences/com.nactr
     // 从原来的 plist 中读取
     self.appArray = [[KBAppManager sharedManager]getAppListToArrayWithAppPlistPath:originalPlistPath];
     }
-
-   NSLog(@"self.appArray ----> %@",self.appArray);
 }
 
 - (void)initUI{
@@ -82,7 +79,7 @@ static NSString *originalPlistPath = @"/var/mobile/Library/Preferences/com.nactr
     if (cell == nil) {
     cell = [[UITableViewCell alloc]initWithStyle:UITableViewCellStyleDefault reuseIdentifier:reuseIdentifier];
     }
-    cell.textLabel.text = self.appArray[indexPath.row];
+    cell.textLabel.text = [[KBAppManager sharedManager]getApplicationNameFromDisplayIdentifier:self.appArray[indexPath.row]];
     cell.imageView.image = [[KBAppManager sharedManager]getImageWithDisplayIdentifier:self.appArray[indexPath.row]];
     return cell;
 }

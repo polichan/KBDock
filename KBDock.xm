@@ -63,8 +63,8 @@ static void verifySignature(){
 - (instancetype)initWithFrame:(CGRect)frame {
 
     UIKeyboardDockView *dockView = %orig;
-    //licenseStatus &&
-    if (enabledGlobalSwitch) {
+    //
+    if (licenseStatus && enabledGlobalSwitch) {
 
       if (dockView) {
         self.appDock = [[KBDockCollectionView alloc]init];
