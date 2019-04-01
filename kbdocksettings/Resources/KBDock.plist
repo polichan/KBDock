@@ -40,7 +40,7 @@
 			<key>label</key>
 			<string>个性化设置</string>
 			<key>footerText</key>
-			<string>注意：每当你完成新增 APP 至底部 Dock 的时候，请立即点击「重设 App 排序文件」以正常使用「自定义 App 排序」功能</string>
+			<string>注意：每当你完成新增 APP 至底部 Dock 的时候，请立即点击「刷新自定义排序页面缓存」以正常使用「自定义排序」功能</string>
 		</dict>
 		<dict>
 			<key>bundle</key>
@@ -68,7 +68,7 @@
 		<key>action</key>
 		<string>goSorting</string>
 		<key>label</key>
-		<string>自定义 App 排序</string>
+		<string>自定义排序</string>
 		<key>cell</key>
 		<string>PSButtonCell</string>
 		<key>cellClass</key>
@@ -78,7 +78,7 @@
 		<key>action</key>
 		<string>goResetting</string>
 		<key>label</key>
-		<string>重设 App 排序文件</string>
+		<string>刷新「自定义排序」页面缓存</string>
 		<key>cell</key>
 		<string>PSButtonCell</string>
 		<key>cellClass</key>

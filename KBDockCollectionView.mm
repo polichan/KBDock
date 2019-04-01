@@ -75,7 +75,11 @@ static BOOL haveSortedPlist = NO;
 - (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath {
     [UIImpactFeedbackGenerator generateFeedbackWithLightStyle];
     dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^(void){
+      if (haveSortedPlist) {
+        [workspace openApplicationWithBundleID:[[KBAppManager sharedManager]getSortedAppListArratFromPath:sortedPlist][indexPath.row]];
+      }else{
         [workspace openApplicationWithBundleID:[[KBAppManager sharedManager]getAppListToArrayWithAppPlistPath:appListPlist][indexPath.row]];
+      }
     });
 }
 

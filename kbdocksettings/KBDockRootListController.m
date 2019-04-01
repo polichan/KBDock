@@ -21,6 +21,7 @@
 
 static NSString *bundlePath = @"/Library/PreferenceBundles/KBDockSettings.bundle";
 static NSString *udidPath = @"/var/mobile/Library/nactro/info.dat";
+static NSString *sortedPlistPath = @"/var/mobile/Library/Preferences/com.nactro.kbdocksettings.sortedList.plist";
 @interface KBDockRootListController()<MFMailComposeViewControllerDelegate>
 @property (nonatomic, strong) NactroStickyHeaderView *headerView;
 @end
@@ -67,12 +68,18 @@ static NSString *udidPath = @"/var/mobile/Library/nactro/info.dat";
 }
 
 - (void)goResetting{
-	UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"注意" message:@"该功能仅限于您完成过「APP 排序」操作，且打算重新添加应用至 Dock 后再进行「APP 排序」操作的用户。" preferredStyle:UIAlertControllerStyleActionSheet];
+	UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"注意" message:@"该功能仅限于您完成过「自定义排序」操作，且打算重新添加应用至 Dock 后再进行「自定义排序」操作的用户。" preferredStyle:UIAlertControllerStyleActionSheet];
 
-	UIAlertAction *confirmAction = [UIAlertAction actionWithTitle:@"重设排序文件" style:UIAlertActionStyleDefault handler:^(UIAlertAction *action) {
+	UIAlertAction *confirmAction = [UIAlertAction actionWithTitle:@"刷新「自定义排序」页面缓存" style:UIAlertActionStyleDefault handler:^(UIAlertAction *action) {
 		NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
 		[defaults removeObjectForKey:@"KBDockUserHaveSortedAppPlist"];
 		[defaults synchronize];
+
+		NSFileManager *manager = [NSFileManager defaultManager];
+		if ([manager fileExistsAtPath:sortedPlistPath]){
+		//remove
+			[manager removeItemAtPath:sortedPlistPath error:nil];
+		}
 	    }];
 	UIAlertAction *cancelAction = [UIAlertAction actionWithTitle:@"取消操作" style:UIAlertActionStyleCancel handler:^(UIAlertAction *action) {
 	 }];
