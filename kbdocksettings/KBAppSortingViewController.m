@@ -79,7 +79,6 @@ static NSString *originalPlistPath = @"/var/mobile/Library/Preferences/com.nactr
     if (cell == nil) {
     cell = [[UITableViewCell alloc]initWithStyle:UITableViewCellStyleDefault reuseIdentifier:reuseIdentifier];
     }
-    cell.textLabel.textColor = [UIColor grayColor];
     cell.textLabel.text = [[KBAppManager sharedManager]getApplicationNameFromDisplayIdentifier:self.appArray[indexPath.row]];
     cell.imageView.image = [[KBAppManager sharedManager]getImageWithDisplayIdentifier:self.appArray[indexPath.row]];
     return cell;
