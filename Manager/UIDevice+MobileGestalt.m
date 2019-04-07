@@ -1,8 +1,5 @@
-
-#import "UIDevice+MobileGestaltCategory.h"
+#import "UIDevice+MobileGestalt.h"
 #import "../KBDockMacro.h"
-// #import "libMobileGestalt.h"
-
 @implementation UIDevice (MobileGestalt)
 
 // Mobile Gestalt EquipmentInfo

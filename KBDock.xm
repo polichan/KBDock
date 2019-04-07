@@ -1,13 +1,11 @@
 #import "KBDock.h"
 #import "KBDockCollectionView.h"
 #import "Manager/DLicenseManager.h"
-#import "Manager/ACUDIDGetter.h"
 
 static NSString *KBDockSettingsPlist = @"/var/mobile/Library/Preferences/com.nactro.kbdocksettings.plist";
 static NSString *bundleName = @"com.nactro.kbdock";
 static NSString *trialerLicensePath = @"/var/mobile/Library/nactro/trial/com.nactro.kbdock.dat";
 static NSString *licensePath = @"/var/mobile/Library/nactro/com.nactro.kbdock.dat";
-static NSString *udidPath = @"/var/mobile/Library/nactro/info.dat";
 
 static NSString *publicKey = @"MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAptsM8G+m3huFQMYqFkV6Ky5TiGqCjE6G3oL9/XSTAkCyQcVQFry17sN5u2s/7YZq0hZZmDpwXE16y2+feUMz4UI9BuS1zr9IiSqoDRKln3amekA7VLfuwuY6ptEJDqRfl114iLvkfXmArThPS7L1G43fFX5HhsblXF6SrQNHr4HHUMlSaGFBW0s5MYK1hLynV/lkn7heE87BEW13D3XwhVhHTNboZ9tABpStMbTHRUxB1Mjb79TjB0qFUvC7VP57Rd5DzO++GQwdAniKYTisJ5ZPoN9yY7dGoSWhYBz3Te7dlcCNzzSVXDrAvjvXNdkuZvf2iA8FS85QTl3IKIoHLQIDAQAB";
 
@@ -24,13 +22,11 @@ static void loadPrefs() {
 }
 
 static void verifySignature(){
-  // 首先判断有没有试用文件
   NSFileManager *fileManager = [NSFileManager defaultManager];
-  NSString *udid = [ACUDIDGetter getUDIDFromPath:udidPath];
-
+  // 首先判断有没有试用文件
   if([fileManager fileExistsAtPath:licensePath] && [fileManager fileExistsAtPath:trialerLicensePath]){  // 同时存在有先判断正式激活文件
     // 如果存在，就验证文件
-    BOOL result = [DLicenseManager verifyLicenseFromPath:licensePath publicKey:publicKey bundleName:bundleName udid:udid];
+    BOOL result = [DLicenseManager verifyLicenseFromPath:licensePath publicKey:publicKey bundleName:bundleName];
     if (result) {
       licenseStatus = YES;
     }else{
@@ -38,14 +34,14 @@ static void verifySignature(){
     }
   }else if([fileManager fileExistsAtPath:licensePath]){ //判断正式激活文件是否存在
     // 存在则验证
-    BOOL result = [DLicenseManager verifyLicenseFromPath:licensePath publicKey:publicKey bundleName:bundleName udid:udid];
+    BOOL result = [DLicenseManager verifyLicenseFromPath:licensePath publicKey:publicKey bundleName:bundleName];
     if (result) {
       licenseStatus = YES;
     }else{
       licenseStatus = NO;
     }
   }else if([fileManager fileExistsAtPath:trialerLicensePath]){
-    BOOL trial = [DLicenseManager verifyTrailerLicenseFromPath:trialerLicensePath publicKey:publicKey bundleName:bundleName udid:udid];
+    BOOL trial = [DLicenseManager verifyTrailerLicenseFromPath:trialerLicensePath publicKey:publicKey bundleName:bundleName];
     if (trial) {
       licenseStatus = YES;
     }else{

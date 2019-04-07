@@ -17,7 +17,7 @@
  @param publicKey 公钥字符串
  @return 是否有效
  */
-+ (BOOL)verifyLicenseFromPath:(NSString *)licenseFilePath publicKey:(NSString *)publicKey bundleName:(NSString *)bundleName  udid:(NSString *)udid;
++ (BOOL)verifyLicenseFromPath:(NSString *)licenseFilePath publicKey:(NSString *)publicKey bundleName:(NSString *)bundleName;
 
 /**
  验证试用证书签名方法
@@ -26,7 +26,7 @@
  @param publicKey 公钥文件
  @return 返回是否有效
  */
-+ (BOOL)verifyTrailerLicenseFromPath:(NSString *)trailerLicensePath publicKey:(NSString *)publicKey bundleName:(NSString *)bundleName udid:(NSString *)udid;
++ (BOOL)verifyTrailerLicenseFromPath:(NSString *)trailerLicensePath publicKey:(NSString *)publicKey bundleName:(NSString *)bundleName;
 /**
  写入签名文件
 

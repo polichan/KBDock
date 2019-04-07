@@ -14,7 +14,8 @@ endif
 include $(THEOS)/makefiles/common.mk
 
 BUNDLE_NAME = KBDockSettings
-KBDockSettings_FILES = KBDockRootListController.m KBAppSortingViewController.m ../Common.mm NactroCreditClasses/NactroCreditOption.m NactroCreditClasses/NactroCreditService.m  NactroCreditClasses/NactroCreditCell.m ../Manager/DTrailTimeManager.m ../Manager/ACHexManager.m ../Manager/DRSACryption.m ../Manager/DLicenseManager.m ../Manager/ACPlainStringManager.m ../Manager/NSString+URL.m KBActivateStatusCell.m NactroStickyHeaderView.m UIFont+Extension.m ../Manager/UIDevice+MobileGestaltCategory.m ../Manager/ACUDIDManager.m ../Manager/ACUDIDGetter.m  ../KBAppManager.m
+KBDockSettings_FILES = ../Common.mm ../KBAppManager.m $(wildcard *.m ../Manager/*.m)
+
 KBDockSettings_INSTALL_PATH = /Library/PreferenceBundles
 KBDockSettings_FRAMEWORKS = UIKit Foundation CoreFoundation
 KBDockSettings_LIBRARIES = applist MobileGestalt

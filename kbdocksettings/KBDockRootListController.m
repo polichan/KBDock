@@ -10,8 +10,6 @@
 #import <MessageUI/MessageUI.h>
 #import "NactroStickyHeaderView.h"
 #import "UIFont+Extension.h"
-#import "../Manager/UIDevice+MobileGestaltCategory.h"
-#import "../Manager/ACUDIDManager.h"
 #import "KBAppSortingViewController.h"
 
 #define mainColor [UIColor colorWithRed:0.36 green:0.38 blue:0.60 alpha:1.0f]
@@ -20,8 +18,8 @@
 #define kHeight [[UIScreen mainScreen] bounds].size.height
 
 static NSString *bundlePath = @"/Library/PreferenceBundles/KBDockSettings.bundle";
-static NSString *udidPath = @"/var/mobile/Library/nactro/info.dat";
 static NSString *sortedPlistPath = @"/var/mobile/Library/Preferences/com.nactro.kbdocksettings.sortedList.plist";
+
 @interface KBDockRootListController()<MFMailComposeViewControllerDelegate>
 @property (nonatomic, strong) NactroStickyHeaderView *headerView;
 @end
@@ -38,11 +36,6 @@ static NSString *sortedPlistPath = @"/var/mobile/Library/Preferences/com.nactro.
 	[super viewDidLoad];
 	UIImage *icon = [UIImage imageWithContentsOfFile:[bundlePath stringByAppendingPathComponent:@"KBDock.png"]];
 	self.navigationItem.titleView = [[UIImageView alloc] initWithImage:icon];
-	[self writeUDID];
-}
-
-- (void)writeUDID{
-	[ACUDIDManager writeUDIDToPath:udidPath];
 }
 
 /* TableView stuff. */
@@ -200,7 +193,7 @@ static NSString *sortedPlistPath = @"/var/mobile/Library/Preferences/com.nactro.
 #pragma mark - 懒加载
 - (NactroStickyHeaderView *)headerView{
     if (!_headerView) {
-        _headerView = [[NactroStickyHeaderView alloc]initWithDevName:@"Nactro Dev." tweakName:@"快捷键盘" tweakVersion:@"v1.0.3" backgroundColor:mainColor];
+        _headerView = [[NactroStickyHeaderView alloc]initWithDevName:@"Nactro Dev." tweakName:@"快捷键盘" tweakVersion:@"v1.0.4" backgroundColor:mainColor];
         //_headerView.frame = CGRectMake(0, 0, kWidth, HEADER_HEIGHT);
     }
     return _headerView;

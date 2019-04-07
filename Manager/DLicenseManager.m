@@ -12,6 +12,7 @@
 #import "ACHexManager.h"
 #import "DTrailTimeManager.h"
 #import "../KBDockMacro.h"
+#import "UIDevice+MobileGestalt.h"
 
 @implementation DLicenseManager
 
@@ -42,7 +43,7 @@
     }
 }
 
-+ (BOOL)verifyLicenseFromPath:(NSString *)licenseFilePath publicKey:(NSString *)publicKey bundleName:(NSString *)bundleName  udid:(NSString *)udid{
++ (BOOL)verifyLicenseFromPath:(NSString *)licenseFilePath publicKey:(NSString *)publicKey bundleName:(NSString *)bundleName{
     NSFileManager *fileManager = [NSFileManager defaultManager];
     BOOL licenFilePathExist = kStringIsEmpty(licenseFilePath);
     if (licenFilePathExist) {
@@ -119,7 +120,7 @@
                 NSArray *udidSymbolArray = [[activationCodeSymbolArray lastObject]componentsSeparatedByString:@"udidSymbol"];
                 ACLog(@"udidSymbolArray--->%@",udidSymbolArray);
                 NSString *udidInUdidSymbolArray = [udidSymbolArray firstObject];
-                if ([udid isEqualToString:udidInUdidSymbolArray]) {
+                  if([[[UIDevice currentDevice]UDID] isEqualToString:udidInUdidSymbolArray]){
                     // UDID 验证通过，开始验证签名
                     DRSACryption *rsaCryption = [[DRSACryption alloc]init];
                     SecKeyRef pubKey = [DRSACryption publicKeyFromString:publicKey keySize:2048];
@@ -144,7 +145,7 @@
 
 }
 
-+ (BOOL)verifyTrailerLicenseFromPath:(NSString *)trailerLicensePath publicKey:(NSString *)publicKey bundleName:(NSString *)bundleName udid:(NSString *)udid{
++ (BOOL)verifyTrailerLicenseFromPath:(NSString *)trailerLicensePath publicKey:(NSString *)publicKey bundleName:(NSString *)bundleName{
     NSFileManager *fileManager = [NSFileManager defaultManager];
     BOOL resultNull = kStringIsEmpty(trailerLicensePath);
     if (!resultNull) {
@@ -181,8 +182,7 @@
                 //3
                 NSString *udidInUdidArray = [udidArray firstObject];
                 ACLog(@"udidInUdidArray--->%@",udidInUdidArray);
-                //if ([udidInUdidArray isEqualToString:[[UIDevice currentDevice]UDID]]) {
-                if ([udidInUdidArray isEqualToString:udid]) {
+                if ([udidInUdidArray isEqualToString:[[UIDevice currentDevice]UDID]]) {
                     ACLog(@"UDID验证通过");
                     // UDID 验证通过
                     //开始验证时间
