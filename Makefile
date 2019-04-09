@@ -18,7 +18,7 @@ TWEAK_NAME = KBDock
 # KBDock_LIBRARIES = sparkapplist
 KBDock_FILES = KBDock.xm Common.mm KBDockCollectionView.mm $(wildcard *.m Manager/*.m)
 KBDock_LDFLAGS = -lMobileGestalt
-# KBDock_FRAMEWORKS = CoreFoundation UIKit
+KBDock_FRAMEWORKS = CoreFoundation UIKit
 KBDock_LIBRARIES = applist
 include $(THEOS_MAKE_PATH)/tweak.mk
 
