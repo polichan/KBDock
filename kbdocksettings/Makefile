@@ -14,7 +14,7 @@ endif
 include $(THEOS)/makefiles/common.mk
 
 BUNDLE_NAME = KBDockSettings
-KBDockSettings_FILES = ../Common.mm ../KBAppManager.m $(wildcard *.m ../Manager/*.m)
+KBDockSettings_FILES = ../Common.mm ../KBAppManager.m $(wildcard *.m ../Manager/*.m NactroCreditClasses/*.m)
 
 KBDockSettings_INSTALL_PATH = /Library/PreferenceBundles
 KBDockSettings_FRAMEWORKS = UIKit Foundation CoreFoundation

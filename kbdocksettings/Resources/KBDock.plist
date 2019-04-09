@@ -15,8 +15,12 @@
 			<string>PSGroupCell</string>
 			<key>label</key>
 			<string>功能区域</string>
+			<key>footerText</key>
+			<string>「快捷剪贴板」开启后会替换系统自带的「语音识别」按钮为「剪贴按钮」</string>
 		</dict>
 		<dict>
+			<key>cellClass</key>
+			<string>KBSwitchCell</string>
 			<key>cell</key>
 			<string>PSSwitchCell</string>
 			<!--
@@ -30,6 +34,25 @@
 			<string>enabledGlobalSwitch</string>
 			<key>label</key>
 			<string>全局开关</string>
+			<key>PostNotification</key>
+			<string>com.nactro.kbdocksettings/changed</string>
+		</dict>
+		<dict>
+			<key>cellClass</key>
+			<string>KBSwitchCell</string>
+			<key>cell</key>
+			<string>PSSwitchCell</string>
+			<!--
+			<key>cellClass</key>
+			<string>KBSwitchCell</string>-->
+			<key>default</key>
+			<false/>
+			<key>defaults</key>
+			<string>com.nactro.kbdocksettings</string>
+			<key>key</key>
+			<string>enabledClipBoradSwitch</string>
+			<key>label</key>
+			<string>开启「快捷剪贴板」</string>
 			<key>PostNotification</key>
 			<string>com.nactro.kbdocksettings/changed</string>
 		</dict>

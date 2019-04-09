@@ -55,14 +55,6 @@ static NSString *sortedPlistPath = @"/var/mobile/Library/Preferences/com.nactro.
 	}
 }
 
-// - (void)scrollViewDidScroll:(UIScrollView *)scrollView{
-//     CGFloat y = scrollView.contentOffset.y;
-//     if (y < - 100) {
-// 			UIAlertView *easterEggsAlert =[[UIAlertView alloc]initWithTitle:@"提示" message:@"恭喜你发现了这个彩蛋呢 \n 愚人节快乐 \n 🎉" delegate:self cancelButtonTitle:nil otherButtonTitles:@"好的", nil];
-// 			[easterEggsAlert show];
-//     }
-// }
-
 - (void)goSorting{
 	KBAppSortingViewController *vc = [[KBAppSortingViewController alloc]init];
 	[self.navigationController pushViewController:vc animated:YES];
@@ -193,7 +185,7 @@ static NSString *sortedPlistPath = @"/var/mobile/Library/Preferences/com.nactro.
 #pragma mark - 懒加载
 - (NactroStickyHeaderView *)headerView{
     if (!_headerView) {
-        _headerView = [[NactroStickyHeaderView alloc]initWithDevName:@"Nactro Dev." tweakName:@"快捷键盘" tweakVersion:@"v1.0.4" backgroundColor:mainColor];
+        _headerView = [[NactroStickyHeaderView alloc]initWithDevName:@"Nactro Dev." tweakName:@"快捷键盘" tweakVersion:@"v1.0.5" backgroundColor:mainColor];
         //_headerView.frame = CGRectMake(0, 0, kWidth, HEADER_HEIGHT);
     }
     return _headerView;
@@ -225,7 +217,6 @@ static NSString *sortedPlistPath = @"/var/mobile/Library/Preferences/com.nactro.
 	self = [super initWithStyle:arg1 reuseIdentifier:arg2 specifier:arg3];
 	if (self) {
 		[((UISwitch *)[self control]) setOnTintColor:mainColor];
-		//[self.textLabel setTextColor:mainColor];
 		self.separatorInset = UIEdgeInsetsZero;
 	}
 	return self;

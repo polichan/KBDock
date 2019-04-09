@@ -1,8 +1,9 @@
 @interface UIKeyboardDockItem : NSObject{
   UIImage *_image;
 }
-
 @property (nonatomic,retain) UIImage * image;
++(id)_standardGlyphColor;
++(id)_darkStyleGlyphColor;
 -(id)initWithImageName:(id)arg1 identifier:(id)arg2;
 @end
 
@@ -16,6 +17,7 @@
 @interface UIKeyboardDockView : UIView{
   UIKeyboardDockItem* _rightDockItem;
 }
+@property (retain, nonatomic) UIButton *clipBoardBtn;
 @property (retain, nonatomic) KBDockCollectionView *appDock;
-@property (nonatomic,retain) UIKeyboardDockItem * rightDockItem;
+@property (nonatomic,retain) UIKeyboardDockItem *rightDockItem;
 @end
