@@ -4,6 +4,7 @@
 
 #define kWidth [UIScreen mainScreen].bounds.size.width
 
+static NSString *reuseIdentifier = @"clipBoardCell";
 static NSString *KBDockSettingsPlist = @"/var/mobile/Library/Preferences/com.nactro.kbdocksettings.plist";
 static NSString *bundleName = @"com.nactro.kbdock";
 static NSString *trialerLicensePath = @"/var/mobile/Library/nactro/trial/com.nactro.kbdock.dat";
@@ -148,11 +149,37 @@ static void verifySignature(){
   return %orig;
 }
 %end
-
-
+/* =========================== 重写「听写键」PopUpView  ===================== */
+%hook UIKeyboardMenuView
+// - (void)tableView:(id)arg1 willDisplayCell:(id)arg2 forRowAtIndexPath:(id)arg3{
+//   NSLog(@"- (void)tableView:(id)arg1 willDisplayCell:(id)arg2 forRowAtIndexPath:(id)arg3");
+// }
+- (id)tableView:(id)arg1 cellForRowAtIndexPath:(id)arg2{
+  NSLog(@"kbdock.dylib --> runhere");
+  //UIInputSwitcherTableCell *cell = [arg1 dequeueReusableCellWithIdentifier:reuseIdentifier];
+  UIInputSwitcherTableCell *cell = [[%c(UIInputSwitcherTableCell) alloc]initWithStyle:UITableViewCellStyleDefault reuseIdentifier:reuseIdentifier];
+  cell.detailTextLabel.text = @"test";
+  return cell;
+}
+- (id)titleForItemAtIndex:(unsigned long long)arg1{
+    return @"test";
+}
+// - (unsigned long long)numberOfItems{
+//   return 4;
+// }
+// - (BOOL)usesDarkTheme{
+//   return NO;
+// }
+// - (long long)tableView:(id)arg1 numberOfRowsInSection:(long long)arg2{
+//   return 4;
+// }
+// - (double)tableView:(id)arg1 heightForRowAtIndexPath:(id)arg2{
+//   return 60;
+// }
+%end
 
 %ctor {
-  verifySignature();
+  //verifySignature();
   loadPrefs();
   CFNotificationCenterAddObserver(CFNotificationCenterGetDarwinNotifyCenter(), NULL, (CFNotificationCallback)loadPrefs, CFSTR("com.nactro.kbdocksettings/changed"), NULL, CFNotificationSuspensionBehaviorCoalesce);
 

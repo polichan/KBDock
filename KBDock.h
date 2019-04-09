@@ -21,3 +21,11 @@
 @property (retain, nonatomic) KBDockCollectionView *appDock;
 @property (nonatomic,retain) UIKeyboardDockItem *rightDockItem;
 @end
+
+@interface UIKeyboardMenuView : UIView
+-(id)tableView:(id)arg1 cellForRowAtIndexPath:(id)arg2;
+@end
+
+@interface UIInputSwitcherTableCell : UITableViewCell
+-(id)initWithStyle:(long long)arg1 reuseIdentifier:(id)arg2;
+@end
