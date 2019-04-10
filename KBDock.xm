@@ -3,10 +3,13 @@
 #import "Manager/DLicenseManager.h"
 #import "KBDockMacro.h"
 #import "KBDockClipBoardViewController.h"
+#import <objc/runtime.h>
+#import "UIView+Extend.h"
 
 #define kWidth [UIScreen mainScreen].bounds.size.width
+#define kHeight [UIScreen mainScreen].bounds.size.height
+#define kTopWindow [[UIApplication sharedApplication]keyWindow]
 
-static NSString *reuseIdentifier = @"clipBoardCell";
 static NSString *KBDockSettingsPlist = @"/var/mobile/Library/Preferences/com.nactro.kbdocksettings.plist";
 static NSString *bundleName = @"com.nactro.kbdock";
 static NSString *trialerLicensePath = @"/var/mobile/Library/nactro/trial/com.nactro.kbdock.dat";
@@ -121,12 +124,13 @@ static void verifySignature(){
 - (void)clipBoardBtnButtonClick:(id)sender{
   // UIPasteboard *pasteBoard = [UIPasteboard generalPasteboard];
   // [[NSClassFromString(@"UIKeyboardImpl") activeInstance] insertText:pasteBoard.string];
-  KBDockClipBoardViewController *vc = [[KBDockClipBoardViewController alloc]initWithViewFrame:CGRectMake(50, 50, 300, 300)];
+  //KBDockClipBoardViewController *vc = [[KBDockClipBoardViewController alloc]initWithViewFrame:CGRectMake(0,kHeight - 375 ,kWidth, 375)];
+  KBDockClipBoardViewController *vc = [[KBDockClipBoardViewController alloc]initWithViewFrame:CGRectMake(10,0,375 - 10 *2 ,400)];
   vc.view.alpha = 0.0;
-  UIViewController *rootController = [UIApplication sharedApplication].keyWindow.rootViewController;
-  [rootController addChildViewController:vc];
-  [rootController.view addSubview:vc.view];
-  vc.view.frame = rootController.view.bounds;
+  UIViewController *inputVC = [self viewController];
+  NSLog(@"dockView所在的控制器------>%@ ------>%f -------->%f",inputVC,inputVC.view.frame.size.height,inputVC.view.frame.size.width);
+  [inputVC.view addSubview:vc.view];
+  //vc.view.frame = [self viewController].view.bounds;
   [vc animateForPresentation];
 }
 
@@ -158,9 +162,13 @@ static void verifySignature(){
   return %orig;
 }
 %end
-/* =========================== 重写「听写键」PopUpView  ===================== */
-
-
+/* =========================== UIPasteboard  ===================== */
+%hook UIPasteboard
+- (void)setString:(NSString *)arg1{
+  [[NSNotificationCenter defaultCenter] postNotificationName:@"kbDidSetString" object:nil userInfo:@{@"string":arg1}];
+  %orig;
+}
+%end
 
 %ctor {
   //verifySignature();

@@ -7,12 +7,6 @@
 -(id)initWithImageName:(id)arg1 identifier:(id)arg2;
 @end
 
-@interface UISystemKeyboardDockController : UIViewController{
-  UIKeyboardDockItem * _dictationDockItem;
-}
--(void)dictationItemButtonWasPressed:(id)arg1 withEvent:(id)arg2;
-@end
-
 @class KBDockCollectionView;
 @interface UIKeyboardDockView : UIView{
   UIKeyboardDockItem* _rightDockItem;
@@ -21,6 +15,14 @@
 @property (retain, nonatomic) KBDockCollectionView *appDock;
 @property (nonatomic,retain) UIKeyboardDockItem *rightDockItem;
 @end
+
+@interface UISystemKeyboardDockController : UIViewController{
+  UIKeyboardDockItem * _dictationDockItem;
+}
+@property (nonatomic,retain) UIKeyboardDockView * dockView;
+-(void)dictationItemButtonWasPressed:(id)arg1 withEvent:(id)arg2;
+@end
+
 
 @interface UIKeyboardMenuView : UIView
 -(id)tableView:(id)arg1 cellForRowAtIndexPath:(id)arg2;
@@ -55,4 +57,12 @@
 - (void)setInputMode:(NSString *)identifer;
 - (void)customizeCell:(id)arg1 forItemAtIndex:(unsigned long long)arg2 ;
 - (void)_reloadInputSwitcherItems;
+@end
+
+
+@interface UIPasteboard : NSObject
+@property (nonatomic,copy) NSArray * items;
+@property (nonatomic,readonly) long long numberOfItems;
+-(void)addItems:(id)arg1;
+-(void)setString:(NSString *)arg1;
 @end

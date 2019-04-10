@@ -8,6 +8,7 @@
 
 #import "KBDockClipBoardViewController.h"
 #import "UIColor+Hex.h"
+#import "UIImpactFeedbackGenerator+Feedback.h"
 
 static NSString *reuseIdentifier = @"kbdockClipBoard";
 
@@ -51,6 +52,7 @@ static NSString *reuseIdentifier = @"kbdockClipBoard";
 
     [self.view addSubview:self.backgroundView];
 
+
     self.darkeningView = [[UIView alloc] initWithFrame:CGRectZero];
     self.darkeningView.backgroundColor = [UIColor colorWithWhite:0.0 alpha:0.2];
     self.darkeningView.userInteractionEnabled = NO;
@@ -83,6 +85,13 @@ static NSString *reuseIdentifier = @"kbdockClipBoard";
     }];
 }
 
+- (void)_userDidFinishPasting{
+    [self animateForDismissalWithCompletion:^{
+        [self removeFromParentViewController];
+        [self.view removeFromSuperview];
+    }];
+}
+
 #pragma mark - Table view data source
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
@@ -104,7 +113,9 @@ static NSString *reuseIdentifier = @"kbdockClipBoard";
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
+    [UIImpactFeedbackGenerator generateFeedbackWithLightStyle];
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
+    [self _userDidFinishPasting];
 }
 
 #pragma mark - 页面出现动画
@@ -152,7 +163,8 @@ static NSString *reuseIdentifier = @"kbdockClipBoard";
 - (UITableView *)tableView{
     if (!_tableView) {
         _tableView = [[UITableView alloc]initWithFrame:CGRectZero style:UITableViewStyleGrouped];
-        [_tableView setSeparatorStyle:UITableViewCellSeparatorStyleNone];
+        //[_tableView setSeparatorStyle:UITableViewCellSeparatorStyleNone];
+        _tableView.backgroundView.backgroundColor = [UIColor clearColor];
         [_tableView setTableHeaderView:[[UIView alloc]initWithFrame:CGRectMake(0, 0, 0.01, 0.01)]];
         [_tableView registerClass:[UITableViewCell class] forCellReuseIdentifier:reuseIdentifier];
     }
