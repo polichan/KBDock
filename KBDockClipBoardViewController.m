@@ -11,6 +11,7 @@
 #import "UIImpactFeedbackGenerator+Feedback.h"
 #import "kbdocksettings/UIFont+Extension.h"
 
+#define PREFERENCE_BUNDLE_PATH  @"/Library/PreferenceBundles/retimesettings.bundle"
 static NSString *reuseIdentifier = @"kbdockClipBoard";
 
 @interface KBDockClipBoardViewController ()<UITableViewDelegate, UITableViewDataSource>
@@ -31,10 +32,10 @@ static NSString *reuseIdentifier = @"kbdockClipBoard";
     self = [super init];
     if (self) {
         self.contentView = [[UIView alloc]initWithFrame:frame];
-        self.contentView.clipsToBounds = YES;
-        self.contentView.layer.cornerRadius = 12.5;
-        [self.contentView.layer setBorderColor:[[UIColor whiteColor] CGColor]];
-        [self.contentView.layer setBorderWidth:0.8f];
+        //self.contentView.clipsToBounds = YES;
+        //self.contentView.layer.cornerRadius = 12.5;
+        // [self.contentView.layer setBorderColor:[[UIColor whiteColor] CGColor]];
+        // [self.contentView.layer setBorderWidth:0.8f];
         self.contentView.backgroundColor = [UIColor clearColor];
         self.contentView.userInteractionEnabled = YES;
         [self.view addSubview:self.contentView];
@@ -80,6 +81,10 @@ static NSString *reuseIdentifier = @"kbdockClipBoard";
   // handle data
 }
 
+// - (CGFloat)getWholeCellHeight{
+//   return 5 * 60;
+// }
+
 - (void)_userDidTapCloseButton:(id)button {
     // animate out, and hide.
     [self animateForDismissalWithCompletion:^{
@@ -106,12 +111,27 @@ static NSString *reuseIdentifier = @"kbdockClipBoard";
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:reuseIdentifier forIndexPath:indexPath];
-    cell.textLabel.font = [UIFont PingFangRegularForSize:18];
-    //cell.selectedBackgroundView.backgroundColor = [UIColor colorWithHexString:@"#006fff"];
-    cell.backgroundColor = [UIColor clearColor];
-    cell.textLabel.text = @"test";
-    cell.textLabel.textColor = [UIColor whiteColor];
+    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:reuseIdentifier];
+    if (cell == nil) {
+      cell = [[UITableViewCell alloc]initWithStyle:UITableViewCellStyleDefault reuseIdentifier:reuseIdentifier];
+    }
+
+    cell.textLabel.font = [UIFont PingFangLightForSize:18];
+    cell.backgroundColor = [UIColor whiteColor];
+
+    cell.selectedBackgroundView = [[UIView alloc] initWithFrame:cell.frame];
+
+    cell.selectedBackgroundView.backgroundColor = [UIColor colorWithHexString:@"#006fff"];
+    cell.textLabel.highlightedTextColor = [UIColor whiteColor];
+    //cell.detailTextLabel.highlightedTextColor = [UIColor whiteColor];
+
+    cell.textLabel.text = @"I don't give a shit about society!";
+    //cell.detailTextLabel.text = @"nonononono";
+
+    //cell.detailTextLabel.textColor = [UIColor blackColor];
+    cell.textLabel.textColor = [UIColor blackColor];
+
+    cell.imageView.image = [UIImage imageWithContentsOfFile:[PREFERENCE_BUNDLE_PATH stringByAppendingPathComponent:@"placeholder.png"]];
     return cell;
 }
 
@@ -122,8 +142,8 @@ static NSString *reuseIdentifier = @"kbdockClipBoard";
 }
 
 - (void)tableView:(UITableView *)tableView willDisplayCell:(UITableViewCell *)cell forRowAtIndexPath:(NSIndexPath *)indexPath{
-    //[cell setSeparatorInset:UIEdgeInsetsMake(0, 5, 0, 5)];
-    [cell setSeparatorInset:UIEdgeInsetsZero];
+    [cell setSeparatorInset:UIEdgeInsetsMake(0, 5, 0, 5)];
+    //[cell setSeparatorInset:UIEdgeInsetsZero];
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
@@ -176,8 +196,8 @@ static NSString *reuseIdentifier = @"kbdockClipBoard";
     if (!_tableView) {
         _tableView = [[UITableView alloc]initWithFrame:CGRectZero style:UITableViewStyleGrouped];
         //[_tableView setSeparatorStyle:UITableViewCellSeparatorStyleNone];
-        _tableView.separatorColor = [UIColor whiteColor];
-        _tableView.backgroundColor = [UIColor clearColor];
+        //_tableView.separatorColor = [UIColor whiteColor];
+        _tableView.backgroundColor = [UIColor colorWithHexString:@"#f0f0f0"];
         _tableView.showsVerticalScrollIndicator = NO;
         [_tableView setTableHeaderView:[[UIView alloc]initWithFrame:CGRectMake(0, 0, 0.01, 0.01)]];
         [_tableView registerClass:[UITableViewCell class] forCellReuseIdentifier:reuseIdentifier];
