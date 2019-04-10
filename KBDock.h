@@ -58,11 +58,3 @@
 - (void)customizeCell:(id)arg1 forItemAtIndex:(unsigned long long)arg2 ;
 - (void)_reloadInputSwitcherItems;
 @end
-
-
-@interface UIPasteboard : NSObject
-@property (nonatomic,copy) NSArray * items;
-@property (nonatomic,readonly) long long numberOfItems;
--(void)addItems:(id)arg1;
--(void)setString:(NSString *)arg1;
-@end

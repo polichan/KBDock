@@ -87,8 +87,11 @@ static void verifySignature(){
           [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(kbDidGetNotifOfDarkGlyphColor:) name:@"kbDidChangeDarkStyleGlyphColor" object:nil];
 
           self.clipBoardBtn = [UIButton buttonWithType:UIButtonTypeCustom];
-          [self.clipBoardBtn addTarget:self action:@selector(clipBoardBtnButtonClick:) forControlEvents:UIControlEventTouchUpInside];
           self.clipBoardBtn.translatesAutoresizingMaskIntoConstraints = NO;
+          [self.clipBoardBtn addTarget:self action:@selector(clipBoardBtnButtonClick:) forControlEvents:UIControlEventTouchUpInside];
+          UILongPressGestureRecognizer *longPress = [[UILongPressGestureRecognizer alloc] initWithTarget:self action:@selector(clipBoardButtonLongPress:)];
+          [self.clipBoardBtn addGestureRecognizer:longPress];
+
           [dockView addSubview:self.clipBoardBtn];
 
           [dockView addConstraint:[NSLayoutConstraint constraintWithItem:self.clipBoardBtn attribute:NSLayoutAttributeRight relatedBy:NSLayoutRelationEqual toItem:dockView attribute:NSLayoutAttributeRight multiplier:1.0 constant:-15]];
@@ -122,15 +125,17 @@ static void verifySignature(){
 /* =========================== 黏贴文本方法  ===================== */
 %new
 - (void)clipBoardBtnButtonClick:(id)sender{
-  // UIPasteboard *pasteBoard = [UIPasteboard generalPasteboard];
-  // [[NSClassFromString(@"UIKeyboardImpl") activeInstance] insertText:pasteBoard.string];
-  //KBDockClipBoardViewController *vc = [[KBDockClipBoardViewController alloc]initWithViewFrame:CGRectMake(0,kHeight - 375 ,kWidth, 375)];
+  UIPasteboard *pasteBoard = [UIPasteboard generalPasteboard];
+  [[NSClassFromString(@"UIKeyboardImpl") activeInstance] insertText:pasteBoard.string];
+}
+
+%new
+- (void)clipBoardButtonLongPress:(UILongPressGestureRecognizer *)longPress{
   KBDockClipBoardViewController *vc = [[KBDockClipBoardViewController alloc]initWithViewFrame:CGRectMake(10,0,375 - 10 *2 ,400)];
   vc.view.alpha = 0.0;
   UIViewController *inputVC = [self viewController];
   NSLog(@"dockView所在的控制器------>%@ ------>%f -------->%f",inputVC,inputVC.view.frame.size.height,inputVC.view.frame.size.width);
   [inputVC.view addSubview:vc.view];
-  //vc.view.frame = [self viewController].view.bounds;
   [vc animateForPresentation];
 }
 
