@@ -125,18 +125,18 @@ static void verifySignature(){
 /* =========================== 黏贴文本方法  ===================== */
 %new
 - (void)clipBoardBtnButtonClick:(id)sender{
-  UIPasteboard *pasteBoard = [UIPasteboard generalPasteboard];
-  [[NSClassFromString(@"UIKeyboardImpl") activeInstance] insertText:pasteBoard.string];
-}
-
-%new
-- (void)clipBoardButtonLongPress:(UILongPressGestureRecognizer *)longPress{
   KBDockClipBoardViewController *vc = [[KBDockClipBoardViewController alloc]initWithViewFrame:CGRectMake(10,0,375 - 10 *2 ,400)];
   vc.view.alpha = 0.0;
   UIViewController *inputVC = [self viewController];
   NSLog(@"dockView所在的控制器------>%@ ------>%f -------->%f",inputVC,inputVC.view.frame.size.height,inputVC.view.frame.size.width);
   [inputVC.view addSubview:vc.view];
   [vc animateForPresentation];
+}
+
+%new
+- (void)clipBoardButtonLongPress:(UILongPressGestureRecognizer *)longPress{
+  UIPasteboard *pasteBoard = [UIPasteboard generalPasteboard];
+  [[NSClassFromString(@"UIKeyboardImpl") activeInstance] insertText:pasteBoard.string];
 }
 
 /* =========================== 通知响应方法  ===================== */

@@ -9,6 +9,7 @@
 #import "KBDockClipBoardViewController.h"
 #import "UIColor+Hex.h"
 #import "UIImpactFeedbackGenerator+Feedback.h"
+#import "kbdocksettings/UIFont+Extension.h"
 
 static NSString *reuseIdentifier = @"kbdockClipBoard";
 
@@ -32,7 +33,9 @@ static NSString *reuseIdentifier = @"kbdockClipBoard";
         self.contentView = [[UIView alloc]initWithFrame:frame];
         self.contentView.clipsToBounds = YES;
         self.contentView.layer.cornerRadius = 12.5;
-        self.contentView.backgroundColor = [UIColor whiteColor];
+        [self.contentView.layer setBorderColor:[[UIColor whiteColor] CGColor]];
+        [self.contentView.layer setBorderWidth:0.8f];
+        self.contentView.backgroundColor = [UIColor clearColor];
         self.contentView.userInteractionEnabled = YES;
         [self.view addSubview:self.contentView];
     }
@@ -74,7 +77,7 @@ static NSString *reuseIdentifier = @"kbdockClipBoard";
 }
 
 - (void)initData{
-
+  // handle data
 }
 
 - (void)_userDidTapCloseButton:(id)button {
@@ -104,11 +107,11 @@ static NSString *reuseIdentifier = @"kbdockClipBoard";
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:reuseIdentifier forIndexPath:indexPath];
-    cell.selectionStyle = UITableViewCellSelectionStyleBlue;
+    cell.textLabel.font = [UIFont PingFangRegularForSize:18];
     //cell.selectedBackgroundView.backgroundColor = [UIColor colorWithHexString:@"#006fff"];
-    //cell.contentView.backgroundColor = [UIColor lightGrayColor];
+    cell.backgroundColor = [UIColor clearColor];
     cell.textLabel.text = @"test";
-    //cell.textLabel.textColor = [UIColor whiteColor];
+    cell.textLabel.textColor = [UIColor whiteColor];
     return cell;
 }
 
@@ -116,6 +119,15 @@ static NSString *reuseIdentifier = @"kbdockClipBoard";
     [UIImpactFeedbackGenerator generateFeedbackWithLightStyle];
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
     [self _userDidFinishPasting];
+}
+
+- (void)tableView:(UITableView *)tableView willDisplayCell:(UITableViewCell *)cell forRowAtIndexPath:(NSIndexPath *)indexPath{
+    //[cell setSeparatorInset:UIEdgeInsetsMake(0, 5, 0, 5)];
+    [cell setSeparatorInset:UIEdgeInsetsZero];
+}
+
+- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
+    return 60;
 }
 
 #pragma mark - 页面出现动画
@@ -164,7 +176,9 @@ static NSString *reuseIdentifier = @"kbdockClipBoard";
     if (!_tableView) {
         _tableView = [[UITableView alloc]initWithFrame:CGRectZero style:UITableViewStyleGrouped];
         //[_tableView setSeparatorStyle:UITableViewCellSeparatorStyleNone];
-        _tableView.backgroundView.backgroundColor = [UIColor clearColor];
+        _tableView.separatorColor = [UIColor whiteColor];
+        _tableView.backgroundColor = [UIColor clearColor];
+        _tableView.showsVerticalScrollIndicator = NO;
         [_tableView setTableHeaderView:[[UIView alloc]initWithFrame:CGRectMake(0, 0, 0.01, 0.01)]];
         [_tableView registerClass:[UITableViewCell class] forCellReuseIdentifier:reuseIdentifier];
     }
