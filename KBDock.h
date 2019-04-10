@@ -26,6 +26,33 @@
 -(id)tableView:(id)arg1 cellForRowAtIndexPath:(id)arg2;
 @end
 
+
+@interface UIInputSwitcherTableCellBackgroundView : UIView {
+	BOOL _selected;
+	BOOL _drawsOpaque;
+	BOOL _drawsBorder;
+	BOOL _usesDarkTheme;
+	int _roundedCorners;
+}
+@end
+
 @interface UIInputSwitcherTableCell : UITableViewCell
--(id)initWithStyle:(long long)arg1 reuseIdentifier:(id)arg2;
+- (id)initWithStyle:(long long)arg1 reuseIdentifier:(id)arg2;
+@property (nonatomic,retain) UIInputSwitcherTableCellBackgroundView * backgroundView;
+@end
+
+@interface UITableViewCellContentView : UIView
+@property (copy,readonly) NSString * description;
+@end
+
+@interface UIInputSwitcherTableView : UITableView
+-(void)selectRowAtIndexPath:(id)arg1 animated:(BOOL)arg2 scrollPosition:(long long)arg3;
+@end
+
+@interface UIInputSwitcherView : UIKeyboardMenuView
++ (UIInputSwitcherView *)sharedInstance;
++ (UIInputSwitcherView *)activeInstance;
+- (void)setInputMode:(NSString *)identifer;
+- (void)customizeCell:(id)arg1 forItemAtIndex:(unsigned long long)arg2 ;
+- (void)_reloadInputSwitcherItems;
 @end

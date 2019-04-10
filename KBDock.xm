@@ -1,6 +1,8 @@
 #import "KBDock.h"
 #import "KBDockCollectionView.h"
 #import "Manager/DLicenseManager.h"
+#import "KBDockMacro.h"
+#import "KBDockClipBoardViewController.h"
 
 #define kWidth [UIScreen mainScreen].bounds.size.width
 
@@ -82,7 +84,7 @@ static void verifySignature(){
           [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(kbDidGetNotifOfDarkGlyphColor:) name:@"kbDidChangeDarkStyleGlyphColor" object:nil];
 
           self.clipBoardBtn = [UIButton buttonWithType:UIButtonTypeCustom];
-          [self.clipBoardBtn addTarget:self action:@selector(pasteBtnButtonClick:) forControlEvents:UIControlEventTouchUpInside];
+          [self.clipBoardBtn addTarget:self action:@selector(clipBoardBtnButtonClick:) forControlEvents:UIControlEventTouchUpInside];
           self.clipBoardBtn.translatesAutoresizingMaskIntoConstraints = NO;
           [dockView addSubview:self.clipBoardBtn];
 
@@ -116,9 +118,16 @@ static void verifySignature(){
 }
 /* =========================== 黏贴文本方法  ===================== */
 %new
-- (void)pasteBtnButtonClick:(id)sender{
-  UIPasteboard *pasteBoard = [UIPasteboard generalPasteboard];
-  [[NSClassFromString(@"UIKeyboardImpl") activeInstance] insertText:pasteBoard.string];
+- (void)clipBoardBtnButtonClick:(id)sender{
+  // UIPasteboard *pasteBoard = [UIPasteboard generalPasteboard];
+  // [[NSClassFromString(@"UIKeyboardImpl") activeInstance] insertText:pasteBoard.string];
+  KBDockClipBoardViewController *vc = [[KBDockClipBoardViewController alloc]initWithViewFrame:CGRectMake(50, 50, 300, 300)];
+  vc.view.alpha = 0.0;
+  UIViewController *rootController = [UIApplication sharedApplication].keyWindow.rootViewController;
+  [rootController addChildViewController:vc];
+  [rootController.view addSubview:vc.view];
+  vc.view.frame = rootController.view.bounds;
+  [vc animateForPresentation];
 }
 
 /* =========================== 通知响应方法  ===================== */
@@ -150,33 +159,8 @@ static void verifySignature(){
 }
 %end
 /* =========================== 重写「听写键」PopUpView  ===================== */
-%hook UIKeyboardMenuView
-// - (void)tableView:(id)arg1 willDisplayCell:(id)arg2 forRowAtIndexPath:(id)arg3{
-//   NSLog(@"- (void)tableView:(id)arg1 willDisplayCell:(id)arg2 forRowAtIndexPath:(id)arg3");
-// }
-- (id)tableView:(id)arg1 cellForRowAtIndexPath:(id)arg2{
-  NSLog(@"kbdock.dylib --> runhere");
-  //UIInputSwitcherTableCell *cell = [arg1 dequeueReusableCellWithIdentifier:reuseIdentifier];
-  UIInputSwitcherTableCell *cell = [[%c(UIInputSwitcherTableCell) alloc]initWithStyle:UITableViewCellStyleDefault reuseIdentifier:reuseIdentifier];
-  cell.detailTextLabel.text = @"test";
-  return cell;
-}
-- (id)titleForItemAtIndex:(unsigned long long)arg1{
-    return @"test";
-}
-// - (unsigned long long)numberOfItems{
-//   return 4;
-// }
-// - (BOOL)usesDarkTheme{
-//   return NO;
-// }
-// - (long long)tableView:(id)arg1 numberOfRowsInSection:(long long)arg2{
-//   return 4;
-// }
-// - (double)tableView:(id)arg1 heightForRowAtIndexPath:(id)arg2{
-//   return 60;
-// }
-%end
+
+
 
 %ctor {
   //verifySignature();
